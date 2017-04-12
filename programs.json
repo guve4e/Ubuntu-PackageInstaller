@@ -1,0 +1,118 @@
+[
+  {
+  "name" : "Chrome",
+  "comment" : "Chrome Installer",
+  "package name" : "chromium-browser",
+  "version" : "",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install chromium-browser"
+    }
+  ]
+  },
+  {
+  "name" : "KDE-Connect",
+  "comment" : "Kde-Connect Installer",
+  "package name" : "kdeconnect",
+  "version" : "",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:varlesh-l/indicator-kdeconnect"
+    },
+    {
+      "commandDescription" : "search and replace make adjustments",
+      "command" : "sudo sed -i 's/yakkety/xenial/g' /etc/apt/sources.list.d/varlesh-l-ubuntu-indicator-kdeconnect-yakkety.list"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install kdeconnect indicator-kdeconnect"
+    }
+  ]
+  },
+  {
+  "name" : "Arduino",
+  "comment" : "Arduino Installer",
+  "package name" : "arduino",
+  "version" : "",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "udo apt-get install arduino arduino-core"
+    }
+  ]
+  },
+  {
+  "name" : "Pinta",
+  "comment" : "Pinta Installer",
+  "package name" : "pinta",
+  "version" : "",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:pinta-maintainers/pinta-stable"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install pinta"
+    }
+  ]
+  },
+  {
+  "name" : "Virtual Box",
+  "comment" : "Oracle Virtual Box Installer",
+  "package name" : "virtualbox-5.1",
+  "version" : "",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "deb http://download.virtualbox.org/virtualbox/debian xenial contrib"
+    },
+     {
+      "commandDescription" : "download",
+      "command" : "wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install virtualbox-5.1"
+    }
+  ]
+  },
+  {
+  "name" : "Apache",
+  "comment" : "Apache2 Installer",
+  "package name" : "apache2",
+  "version" : "",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install apache2"
+    }
+  ]
+  },
+  {
+  "name" : "PHP",
+  "comment" : "PHP Installer",
+  "package name" : "php7.0",
+  "version" : "7.0",
+  "commands" : [
+    {
+      "commandDescription" : "install python",
+      "command" : "sudo apt-get install python-software-properties"
+    },
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:ondrej/php"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install -y php7.0"
+    },
+    {
+      "commandDescription" : "install additional packages",
+      "command" : "$ sudo apt-get install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi"
+    }
+  ]
+  }
+]
