@@ -3,8 +3,35 @@ import json
 import subprocess
 
 
+
 class Package(object):
     # Package class to describe packages and their behavior
+
+    @staticmethod
+    def found_char(string, char):
+        # convert to string
+        str_version = str(string)
+        # try to find substring
+        find = str_version.find(char)
+
+        if find == -1:
+            # if not found
+            return False
+        else:
+            # found
+            return True
+
+    @staticmethod
+    def remove_chars(string):
+        # convert to string
+        string = str(string)
+        # remove "b"
+        string = string.replace("b'", "")
+        # remove '
+        string = string.replace("'", "")
+        # remove everything after -
+        string = string.split("-", 1)[0]
+        return string
 
     @staticmethod
     def apt_cache(d):
@@ -53,12 +80,12 @@ class Package(object):
             i += 1
             print("Command Description " + str(i) + ": " + str(command['commandDescription']))
             print("Command :" + str(command['command']))
-            output = None
             Package.install_package(command)
 
     @staticmethod
     def is_installed(version):
-        if version == "(none)":
+        found = Package.found_char(version,"none")
+        if not found:
             return True
         else:
             return False
@@ -91,12 +118,15 @@ class Package(object):
             version = Package.extract_version(output)
 
             # check if installed
-            if Package.is_installed(version):
+            if not Package.is_installed(version):
                 # if not, installed it
                 Package.install(d)
             else:
                 # else, just address the user
-                print("This Package is already installed! Version is " + str(version))
+                # remove certain chars
+                version = Package.remove_chars(version)
+
+                print("This Package is already installed! Version is " + version)
 
 
 if __name__ == "__main__":

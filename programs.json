@@ -7,7 +7,7 @@
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install chromium-browser"
+      "command" : "sudo apt-get install chromium-browser -y"
     }
   ]
   },
@@ -27,7 +27,7 @@
     },
     {
       "commandDescription" : "install",
-      "command" : "sudo apt install kdeconnect indicator-kdeconnect"
+      "command" : "sudo apt install kdeconnect indicator-kdeconnect -y"
     }
   ]
   },
@@ -39,7 +39,7 @@
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "udo apt-get install arduino arduino-core"
+      "command" : "sudo apt-get install arduino arduino-core -y"
     }
   ]
   },
@@ -55,7 +55,7 @@
     },
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install pinta"
+      "command" : "sudo apt-get install pinta -y"
     }
   ]
   },
@@ -75,7 +75,7 @@
     },
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install virtualbox-5.1"
+      "command" : "sudo apt-get install virtualbox-5.1 -y"
     }
   ]
   },
@@ -87,7 +87,7 @@
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install apache2"
+      "command" : "sudo apt-get install apache2 -y"
     }
   ]
   },
@@ -99,7 +99,7 @@
   "commands" : [
     {
       "commandDescription" : "install python",
-      "command" : "sudo apt-get install python-software-properties"
+      "command" : "sudo apt-get install python-software-properties -y"
     },
     {
       "commandDescription" : "repository",
@@ -107,11 +107,11 @@
     },
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install -y php7.0"
+      "command" : "sudo apt-get install -y php7.0 -y"
     },
     {
       "commandDescription" : "install additional packages",
-      "command" : "$ sudo apt-get install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi"
+      "command" : "$ sudo apt-get install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi -y"
     }
   ]
   }
