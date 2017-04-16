@@ -3,7 +3,7 @@
   "name" : "Chrome",
   "comment" : "Chrome Installer",
   "package name" : "chromium-browser",
-  "version" : "",
+  "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
@@ -15,7 +15,7 @@
   "name" : "KDE-Connect",
   "comment" : "Kde-Connect Installer",
   "package name" : "kdeconnect",
-  "version" : "",
+  "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "repository",
@@ -35,7 +35,7 @@
   "name" : "Arduino",
   "comment" : "Arduino Installer",
   "package name" : "arduino",
-  "version" : "",
+  "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
@@ -47,7 +47,7 @@
   "name" : "Pinta",
   "comment" : "Pinta Installer",
   "package name" : "pinta",
-  "version" : "",
+  "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "repository",
@@ -63,7 +63,7 @@
   "name" : "Virtual Box",
   "comment" : "Oracle Virtual Box Installer",
   "package name" : "virtualbox-5.1",
-  "version" : "",
+  "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "repository",
@@ -83,7 +83,7 @@
   "name" : "Apache",
   "comment" : "Apache2 Installer",
   "package name" : "apache2",
-  "version" : "",
+  "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
@@ -111,8 +111,53 @@
     },
     {
       "commandDescription" : "install additional packages",
-      "command" : "$ sudo apt-get install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi -y"
+      "command" : "$ sudo apt-get install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi php5-xdebug -y"
+    }
+  ]
+  },
+  {
+  "name" : "GIMP",
+  "comment" : "GIMP Installer",
+  "package name" : "gimp",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:otto-kesselgulasch/gimp"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install gimp -y"
+    }
+  ]
+  },
+  {
+  "name" : "VLC",
+  "comment" : "VLC Installer",
+  "package name" : "vlc",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:videolan/master-daily"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install vlc -y"
+    }
+  ]
+  },
+  {
+  "name" : "Unity Tweak",
+  "comment" : "Unity Tweak Installer",
+  "package name" : "unity-tweak-tool",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo apt-get install unity-tweak-tool -y"
     }
   ]
   }
 ]
+

@@ -2,8 +2,6 @@
 import json
 import subprocess
 
-
-
 class Package(object):
     # Package class to describe packages and their behavior
 
@@ -21,16 +19,38 @@ class Package(object):
             # found
             return True
 
+
     @staticmethod
-    def remove_chars(string):
+    def split_string(string, char):
+        # splits string and returns
+        # the first part
+        string = string.split(char, 1)[0]
+        return string
+
+    @staticmethod
+    def sanitize_str(string):
         # convert to string
         string = str(string)
         # remove "b"
         string = string.replace("b'", "")
         # remove '
         string = string.replace("'", "")
-        # remove everything after -
-        string = string.split("-", 1)[0]
+        return  string
+
+    @staticmethod
+    def remove_chars(string):
+        #sanitize the string
+        string = Package.sanitize_str(string)
+
+        # remove unnecessary things
+        if Package.found_char(string,"-"):
+            string = string.split("-", 1)[0]
+        elif Package.found_char(string,"ubuntu"):
+            string = string.split("ubuntu", 1)[0]
+
+        if Package.found_char(string, "+"):
+            string = string.split("+", 1)[0]
+
         return string
 
     @staticmethod
@@ -102,9 +122,10 @@ class Package(object):
     @staticmethod
     def print_info(d):
         # print some info
+        print("######################################")
         print("Installing : " + d['name'])
-        print("Comments : " + d['comment'])
-        print("Version : " + d['version'])
+        print("Comments   : " + d['comment'])
+        print("Version    : " + d['version'])
 
     @staticmethod
     def parse(program):
@@ -126,7 +147,7 @@ class Package(object):
                 # remove certain chars
                 version = Package.remove_chars(version)
 
-                print("This Package is already installed! Version is " + version)
+                print("This Package is already installed! Version is " + version + "\n")
 
 
 if __name__ == "__main__":
