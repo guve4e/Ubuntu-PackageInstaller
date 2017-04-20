@@ -1,2 +1,2 @@
 # Ubuntu-PackageInstaller
-Python script that install packages
+Python script that installs packages
