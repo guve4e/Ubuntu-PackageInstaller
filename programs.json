@@ -144,6 +144,10 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt install vlc -y"
+    },
+     {
+      "commandDescription" : "install codecs",
+      "command" : "sudo apt-get install ubuntu-restricted-extras -y"
     }
   ]
   },
@@ -156,6 +160,82 @@
     {
       "commandDescription" : "repository",
       "command" : "sudo apt-get install unity-tweak-tool -y"
+    }
+  ]
+  },
+  {
+  "name" : "Cairo Dock",
+  "comment" : "Cairo Dock",
+  "package name" : "cairo-dock",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:cairo-dock-team/ppa"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install cairo-dock cairo-dock-plug-ins -y"
+    }
+  ]
+  },
+  {
+  "name" : "Guake Terminal",
+  "comment" : "Guake Terminal Installer",
+  "package name" : "guake",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install guake -y"
+    },
+      {
+      "commandDescription" : "startup at logon",
+      "command" : "sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart/"
+    }
+  ]
+  },
+  {
+  "name" : "Curl",
+  "comment" : "Curl Installer",
+  "package name" : "curl",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install curl -y"
+    }
+  ]
+  },
+  {
+  "name" : "Git",
+  "comment" : "Git Installer",
+  "package name" : "git",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install git -y"
+    }
+  ]
+  },
+  {
+  "name" : "Dropbox",
+  "comment" : "Dropbox Installer",
+  "package name" : "nautilus-dropbox",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "download",
+      "command" : "cd ~ && wget -O - 'https://www.dropbox.com/download?plat=lnx.x86_64' | tar xzf -"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install nautilus-dropbox -y"
+    },
+    {
+      "commandDescription" : "run",
+      "command" : "~/.dropbox-dist/dropboxd"
     }
   ]
   }

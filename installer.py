@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import json
 import subprocess
+import time
+
 
 class Package(object):
     # Package class to describe packages and their behavior
@@ -18,7 +20,6 @@ class Package(object):
         else:
             # found
             return True
-
 
     @staticmethod
     def split_string(string, char):
@@ -39,7 +40,7 @@ class Package(object):
 
     @staticmethod
     def remove_chars(string):
-        #sanitize the string
+        # sanitize the string
         string = Package.sanitize_str(string)
 
         # remove unnecessary things
@@ -152,6 +153,8 @@ class Package(object):
 
 if __name__ == "__main__":
 
+    start_time = time.time()
+
     try:
         with open('programs.json') as json_data:
             # load json
@@ -161,3 +164,8 @@ if __name__ == "__main__":
 
     except IOError as e:
         print(e.strerror)
+
+    end_time = time.time()
+    elapsed_time = round((end_time - start_time),2)
+    print("=====================================")
+    print("It took " + str(elapsed_time) + " seconds to run script!")
