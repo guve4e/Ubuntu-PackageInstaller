@@ -36,7 +36,7 @@ class Package(object):
         string = string.replace("b'", "")
         # remove '
         string = string.replace("'", "")
-        return  string
+        return string
 
     @staticmethod
     def remove_chars(string):
@@ -44,9 +44,9 @@ class Package(object):
         string = Package.sanitize_str(string)
 
         # remove unnecessary things
-        if Package.found_char(string,"-"):
+        if Package.found_char(string, "-"):
             string = string.split("-", 1)[0]
-        elif Package.found_char(string,"ubuntu"):
+        elif Package.found_char(string, "ubuntu"):
             string = string.split("ubuntu", 1)[0]
 
         if Package.found_char(string, "+"):
@@ -105,7 +105,10 @@ class Package(object):
 
     @staticmethod
     def is_installed(version):
-        found = Package.found_char(version,"none")
+        if not version:
+            return False
+
+        found = Package.found_char(version, "none")
         if not found:
             return True
         else:
@@ -116,6 +119,9 @@ class Package(object):
         # split the output and extract the
         # installed part as:
         # Installed: 1.6-2
+
+        if not output:
+            return 0
         l = output.split()
         version = l[2]
         return version
@@ -166,6 +172,6 @@ if __name__ == "__main__":
         print(e.strerror)
 
     end_time = time.time()
-    elapsed_time = round((end_time - start_time),2)
+    elapsed_time = round((end_time - start_time), 2)
     print("=====================================")
     print("It took " + str(elapsed_time) + " seconds to run script!")
