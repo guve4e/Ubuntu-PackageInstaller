@@ -11,3 +11,8 @@ Then give it permission.
 sudo chown root:root runscript installer.py
 sudo chmod 4755 runscript installer.py
 ```
+Run  
+```
+./runscript
+```
+
