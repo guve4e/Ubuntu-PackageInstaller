@@ -248,6 +248,30 @@
   ]
   },
   {
+  "name" : "CMake",
+  "comment" : "CMake Installer",
+  "package name" : "cmake",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install cmake -y"
+    }
+  ]
+  },
+  {
+  "name" : "Connector/C++",
+  "comment" : "Connector/C++ MySQL interface Installer",
+  "package name" : "libmysqlcppconn-dev",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "apt-get install libmysqlcppconn-dev -y"
+    }
+  ]
+  },
+  {
   "name" : "Dropbox",
   "comment" : "Dropbox Installer",
   "package name" : "nautilus-dropbox",
