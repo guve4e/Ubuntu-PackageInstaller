@@ -77,21 +77,21 @@
   },
   {
   "name" : "Virtual Box",
-  "comment" : "Oracle Virtual Box Installer",
-  "package name" : "virtualbox-5.1",
+  "comment" : "Oracle Virtual Box Installer, Run  $>VBoxManage setextradata 'win10' CustomVideoMode1 1920x1080x32",
+  "package name" : "virtualbox",
   "version" : "Latest",
   "commands" : [
     {
-      "commandDescription" : "repository",
-      "command" : "deb http://download.virtualbox.org/virtualbox/debian xenial contrib"
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install virtualbox -y"
     },
      {
-      "commandDescription" : "download",
-      "command" : "wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -"
+      "commandDescription" : "install extra packages",
+      "command" : "sudo apt install virtualbox-ext-pack -y"
     },
     {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install virtualbox-5.1 -y"
+      "commandDescription" : "install guest additions",
+      "command" : "sudo apt-get install virtualbox-guest-additions-iso -y"
     }
   ]
   },
@@ -104,6 +104,18 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install apache2 -y"
+    }
+  ]
+  },
+  {
+  "name" : "MySQL",
+  "comment" : "MySQL Installer",
+  "package name" : "mysql-server",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install mysql-server -y"
     }
   ]
   },
