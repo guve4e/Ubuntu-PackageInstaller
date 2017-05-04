@@ -136,10 +136,90 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install -y php7.0 -y"
-    },
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - MySQL",
+  "comment" : "PHP7 - MySQL Installer",
+  "package name" : "php7.0-mysql",
+  "version" : "Latest",
+  "commands" : [
     {
-      "commandDescription" : "install additional packages",
-      "command" : "$ sudo apt-get install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi php5-xdebug -y"
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-mysql -y"
+    }
+  ]
+  },
+   {
+  "name" : "PHP - MyAdmin",
+  "comment" : "PHP - MyAdmin Installer",
+  "package name" : "phpmyadmin",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install phpmyadmin php-mbstring php-gettext -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - CURL",
+  "comment" : "PHP7 - CURL Installer",
+  "package name" : "php7.0-curl",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-curl -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - JSON",
+  "comment" : "PHP7 - JSON Installer",
+  "package name" : "php7.0-json",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-json -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - CGI",
+  "comment" : "PHP7 - CGI Installer",
+  "package name" : "php7.0-cgi",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-cgi -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - X-DEBUG",
+  "comment" : "PHP7 - X-DEBUG Installer",
+  "package name" : "php-xdebug",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php-xdebug -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - MBString",
+  "comment" : "PHP7 - MBString Installer",
+  "package name" : "php7.0-mbstring",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-mbstring -y"
     }
   ]
   },
@@ -268,6 +348,18 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt install cmake -y"
+    }
+  ]
+  },
+   {
+  "name" : "Netstat and Net Tools",
+  "comment" : "Netstat Installer",
+  "package name" : "net-tools",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install net-tools -y"
     }
   ]
   },
