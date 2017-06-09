@@ -77,7 +77,7 @@
   },
   {
   "name" : "Virtual Box",
-  "comment" : "Oracle Virtual Box Installer, Run  $>VBoxManage setextradata 'win10' CustomVideoMode1 1920x1080x32",
+  "comment" : "Oracle Virtual Box Installer, Run  $>VBoxManage setextradata 'win10' CustomVideoMode1 1920x1080x32 $>sudo usermod home -a -G vboxusers",
   "package name" : "virtualbox",
   "version" : "Latest",
   "commands" : [
@@ -220,6 +220,18 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install php7.0-mbstring -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP - PHPUNIT",
+  "comment" : "PHP Unit tests",
+  "package name" : "phpunit",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install phpunit -y"
     }
   ]
   },
@@ -372,6 +384,18 @@
     {
       "commandDescription" : "install",
       "command" : "apt-get install libmysqlcppconn-dev -y"
+    }
+  ]
+  },
+  {
+  "name" : "Python PIP3",
+  "comment" : "pip is a package management system used to install and manage software packages written in Python",
+  "package name" : "pythin3-pip",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install python3-pip -y"
     }
   ]
   },

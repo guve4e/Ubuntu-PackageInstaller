@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
     try:
         with open('programs.json') as json_data:
-            # load json
+            # for each json object, load json
             programs = json.load(json_data)
             # parse json
             Package.parse(programs)
