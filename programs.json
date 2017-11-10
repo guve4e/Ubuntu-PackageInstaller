@@ -236,6 +236,18 @@
   ]
   },
   {
+  "name" : "PHP - XML-WRITER",
+  "comment" : "XMLWriter PHP Module",
+  "package name" : "php7.0-xml",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-xml -y"
+    }
+  ]
+  },
+  {
   "name" : "GIMP",
   "comment" : "GIMP Installer",
   "package name" : "gimp",
@@ -340,6 +352,18 @@
   ]
   },
   {
+  "name" : "Meld",
+  "comment" : "Meld Installer",
+  "package name" : "meld",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install meld -y"
+    }
+  ]
+  },
+  {
   "name" : "G++",
   "comment" : "G++ Compiler Installer",
   "package name" : "g++",
@@ -396,6 +420,18 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install python3-pip -y"
+    }
+  ]
+  },
+  {
+  "name" : "Scala",
+  "comment" : "Functional Language",
+  "package name" : "scala",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install scala -y"
     }
   ]
   },
