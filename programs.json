@@ -264,6 +264,22 @@
   ]
   },
   {
+    "name" : "Shutter",
+    "comment" : "Shutter Installer",
+    "package name" : "shutter",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "repository",
+        "command" : "sudo add-apt-repository -y ppa:shutter/ppa"
+      },
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt-get install shutter -y"
+      }
+    ]
+    },
+  {
   "name" : "VLC",
   "comment" : "VLC Installer",
   "package name" : "vlc",
