@@ -1,0 +1,24 @@
+{
+  "file_path" : "testfile.txt",
+  "change" :
+  [
+    {
+      "old" : "Errors Off",
+      "new" : "Errors On"
+    },
+    {
+      "old" : "Something Else Off",
+      "new" : "Something Else On"
+    }
+  ],
+  "add" : [
+    {
+      "line" : "Line 1",
+      "comment" : "Comment 1"
+    },
+    {
+      "line" : "Line 2",
+      "comment" : "Comment 2"
+    }
+  ]
+}
