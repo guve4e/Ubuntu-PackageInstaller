@@ -1,7 +1,6 @@
 {
   "file_path" : "testfile.txt",
-  "change" :
-  [
+  "change" : [
     {
       "old" : "Errors Off",
       "new" : "Errors On"

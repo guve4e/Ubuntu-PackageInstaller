@@ -3,7 +3,7 @@ import json
 import time
 
 from src.package import Package
-
+from src.config_file import ConfigurationFile
 
 def install_programs():
     start_time = time.time()
@@ -31,9 +31,18 @@ def config_php():
     configurations.
     :return: void
     """
+    php = ConfigurationFile("jsonfiles/php.json")
+    php.configure()
 
 
+def config_apache():
+    pass
 
+def config_mysql():
+    pass
+
+def config_git():
+    pass
 
 if __name__ == "__main__":
 
@@ -47,7 +56,9 @@ if __name__ == "__main__":
     # start by adjusting the
     # php configuration file
     config_php()
-
+    config_apache()
+    config_mysql()
+    config_git()
 
 
     end_time_global = time.time()

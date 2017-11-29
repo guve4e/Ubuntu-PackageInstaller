@@ -1,0 +1,14 @@
+{
+  "file_path" : "/etc/php/7.1/apache2/php.ini",
+  "change" : "",
+  "add" : [
+    {
+      "line" : "Line 1",
+      "comment" : "Comment 1"
+    },
+    {
+      "line" : "Line 2",
+      "comment" : "Comment 2"
+    }
+  ]
+}
