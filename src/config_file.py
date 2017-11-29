@@ -79,12 +79,30 @@ class ConfigurationFile(ParseJson):
         for change in self.__change:
             self.replace_text(change['old'], change['new'])
 
+    def add_text(self, command, comment):
+
+        line = command + " # " + comment + "\n"
+
+        with open(self.file_path, "a") as file:
+            file.write(line)
+
+    def configure_add(self):
+
+        for add in self.__add:
+            self.add_text(add['line'], add['comment'])
+
     def configure(self):
 
         # change open permission
         self.change_file_permission('777', self.__file_path)
 
+        # do changing of lines first
         self.configure_change()
+
+        # then do the adding
+        self.configure_add()
 
         # change closed permission
         self.change_file_permission('444', self.__file_path)
+
+
