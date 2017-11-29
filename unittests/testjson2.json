@@ -1,0 +1,15 @@
+{
+  "file_path" : "testfile.txt",
+  "change" :
+  [
+    {
+      "old" : "Errors Off",
+      "new" : "Errors On"
+    },
+    {
+      "old" : "Something Else Off",
+      "new" : "Something Else On"
+    }
+  ],
+  "add" : ""
+}
