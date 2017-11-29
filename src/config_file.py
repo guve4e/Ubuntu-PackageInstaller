@@ -59,8 +59,13 @@ class ConfigurationFile(ParseJson):
 
     @classmethod
     def change_file_permission(cls, mode, file):
-
-        # TODO check file and mode
+        """
+        Uses chmod to change the permission of the file.
+        :param mode: string chmod mode Ex: '777'
+        :param file: the file to be chmod-ed
+        :return: void
+        :raises: when subprocess fails
+        """
 
         try:
             subprocess.call(['chmod', mode, file])
@@ -69,24 +74,54 @@ class ConfigurationFile(ParseJson):
             print(output)
 
     def replace_text(self, text_search, text_replace):
-
+        """
+        Replaces pieces of text with other text.
+        :param text_search: string text to be searched
+        :param text_replace: string text to be replaced
+        :return:
+        """
         with fileinput.FileInput(self.__file_path, inplace=True, backup='.bak') as file:
             for line in file:
                 print(line.replace(text_search, text_replace), end='')
 
     def configure_change(self):
+        """
+        Changes content in a file.
+        :return: void, it returns early if
+        channge variable is not list
+        """
+
+        # check if change is empty
+        # then there is no need to change text
+        if not isinstance(self.__change, list):
+            return
 
         for change in self.__change:
             self.replace_text(change['old'], change['new'])
 
     def add_text(self, command, comment):
-
+        """
+        Appends text to a file.
+        :param command: string
+        :param comment:
+        :return:
+        """
         line = command + " # " + comment + "\n"
 
         with open(self.file_path, "a") as file:
             file.write(line)
 
     def configure_add(self):
+        """
+        Adds content to file.
+        :return: void, it returns early if
+        add variable is not list
+        """
+
+        # check if add is empty
+        # then there is no need to add text
+        if not isinstance(self.__add, list):
+            return
 
         for add in self.__add:
             self.add_text(add['line'], add['comment'])

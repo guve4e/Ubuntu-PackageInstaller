@@ -14,7 +14,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
     def runTest(self):
         self.test_configure_change()
         self.test_change_permission()
-
+        self.test_no_add()
         self.test_restore()
 
     @staticmethod
@@ -66,6 +66,22 @@ class ConfigurationFileTestCase(unittest.TestCase):
         # Assert
         self.assertEqual("Line 1 # Comment 1\n", list_of_lines[2])
         self.assertEqual("Line 2 # Comment 2\n", list_of_lines[3])
+
+    def test_no_add(self):
+        # Arrange
+        file = ConfigurationFile("testjson2.json")
+
+        # Act
+        file.configure_add()
+        list_of_lines = []
+
+        with open('testfile.txt') as fin:
+            for line in fin:
+                list_of_lines.append(line)
+
+        # Assert
+        self.assertEqual("Errors On\n", list_of_lines[0])
+        self.assertEqual("Something Else On\n", list_of_lines[1])
 
     def test_restore(self):
         """
