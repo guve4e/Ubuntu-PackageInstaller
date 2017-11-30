@@ -10,13 +10,25 @@
       "new" : "Something Else On"
     }
   ],
-  "add" : [
+  "append" : [
     {
       "line" : "Line 1",
       "comment" : "Comment 1"
     },
     {
       "line" : "Line 2",
+      "comment" : "Comment 2"
+    }
+  ],
+  "add" : [
+    {
+      "after" : "Errors Off",
+      "line" : "Insert in the middle 1",
+      "comment" : "Comment 1"
+    },
+    {
+      "after" : "Something Else Off",
+      "line" : "Insert in the middle 2",
       "comment" : "Comment 2"
     }
   ]

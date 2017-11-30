@@ -11,5 +11,6 @@
       "new" : "Something Else On"
     }
   ],
-  "add" : ""
+  "append" : "",
+  "add": ""
 }

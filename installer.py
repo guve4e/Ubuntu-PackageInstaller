@@ -36,13 +36,18 @@ def config_php():
 
 
 def config_apache():
-    pass
+    php = ConfigurationFile("jsonfiles/apache.json")
+    php.configure()
+
 
 def config_mysql():
-    pass
+    php = ConfigurationFile("jsonfiles/mysql.json")
+    php.configure()
+
 
 def config_git():
-    pass
+    php = ConfigurationFile("jsonfiles/git.json")
+    php.configure()
 
 if __name__ == "__main__":
 

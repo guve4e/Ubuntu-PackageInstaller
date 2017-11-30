@@ -1,14 +1,43 @@
 {
-  "file_path" : "/etc/php/7.1/apache2/php.ini",
-  "change" : "",
-  "add" : [
+  "file_path" : "/etc/php/7.0/apache2/php.ini",
+  "change" : [
     {
-      "line" : "Line 1",
-      "comment" : "Comment 1"
+      "old" : "display_errors = Off",
+      "new" : "display_errors = On"
     },
     {
-      "line" : "Line 2",
-      "comment" : "Comment 2"
+      "old" : "display_startup_errors = Off",
+      "new" : "display_startup_errors = On"
     }
-  ]
+  ],
+  "append" : [
+    {
+      "line" : "zend_extension='/usr/lib/php7/20100525/xdebug.so'",
+      "comment" : "Path to xdebug library"
+    },
+    {
+      "line" : "xdebug.remote_autostart=1",
+      "comment" : ""
+    },
+     {
+      "line" : "xdebug.remote_enable=1",
+      "comment" : ""
+    }, {
+      "line" : "xdebug.remote_handler=dbgp",
+      "comment" : ""
+    },
+     {
+      "line" : "xdebug.remote_mode=req",
+      "comment" : ""
+    },
+     {
+      "line" : "xdebug.remote_host=127.0.0.1",
+      "comment" : ""
+    },
+    {
+      "line" : "xdebug.remote_port=9000",
+      "comment" : ""
+    }
+  ],
+  "add" : ""
 }

@@ -1,0 +1,10 @@
+{
+  "file_path" : "/etc/php/7.0/apache2/php.ini",
+  "change" : "",
+  "add" : [
+    {
+      "line" : "Include /etc/phpmyadmin/apache.conf",
+      "comment" : "Include the phpmyadmin access"
+    }
+  ]
+}

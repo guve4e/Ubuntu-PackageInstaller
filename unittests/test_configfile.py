@@ -12,10 +12,13 @@ class ConfigurationFileTestCase(unittest.TestCase):
         self.file = ConfigurationFile("testjson.json")
 
     def runTest(self):
-        self.test_configure_change()
-        self.test_change_permission()
-        self.test_no_add()
-        self.test_restore()
+        # self.test_configure_change()
+        # self.test_change_permission()
+        # self.test_configure_append()
+        # self.test_configure_add()
+        # self.test_no_add()
+        # self.test_restore()
+        pass
 
     @staticmethod
     def check_permission(option):
@@ -53,10 +56,13 @@ class ConfigurationFileTestCase(unittest.TestCase):
         self.assertEqual("Errors On\n", list_of_lines[0])
         self.assertEqual("Something Else On\n", list_of_lines[1])
 
-    def test_configure_add(self):
+        # Clean Up
+        self.restore()
+
+    def test_configure_append(self):
 
         # Act
-        self.file.configure_add()
+        self.file.configure_append()
         list_of_lines = []
 
         with open('testfile.txt') as fin:
@@ -67,23 +73,44 @@ class ConfigurationFileTestCase(unittest.TestCase):
         self.assertEqual("Line 1 # Comment 1\n", list_of_lines[2])
         self.assertEqual("Line 2 # Comment 2\n", list_of_lines[3])
 
-    def test_no_add(self):
-        # Arrange
-        file = ConfigurationFile("testjson2.json")
+        # Clean Up
+        self.restore()
+
+    def test_configure_add(self):
 
         # Act
-        file.configure_add()
+        self.file.configure_add()
         list_of_lines = []
 
         with open('testfile.txt') as fin:
             for line in fin:
                 list_of_lines.append(line)
 
-        # Assert
-        self.assertEqual("Errors On\n", list_of_lines[0])
-        self.assertEqual("Something Else On\n", list_of_lines[1])
 
-    def test_restore(self):
+        # Assert
+        self.assertEqual("Insert in the middle 1 # Comment 1\n", list_of_lines[1])
+        self.assertEqual("Insert in the middle 2 # Comment 2\n", list_of_lines[3])
+
+        # Clean Up
+        self.restore()
+
+    # def test_no_add(self):
+    #     # Arrange
+    #     file = ConfigurationFile("testjson2.json")
+    #
+    #     # Act
+    #     file.configure_append()
+    #     list_of_lines = []
+    #
+    #     with open('testfile.txt') as fin:
+    #         for line in fin:
+    #             list_of_lines.append(line)
+    #
+    #     # Assert
+    #     self.assertEqual("Errors On\n", list_of_lines[0])
+    #     self.assertEqual("Something Else On\n", list_of_lines[1])
+
+    def restore(self):
         """
         Doesnt TEST, but restores the testing file
         and it checks for competition
@@ -104,7 +131,3 @@ class ConfigurationFileTestCase(unittest.TestCase):
                 list_of_lines.append(line)
 
         self.change_permission('444')
-
-        self.assertEqual("Errors Off\n", list_of_lines[0])
-        self.assertEqual("Something Else Off\n", list_of_lines[1])
-        self.assertEqual(False, self.check_permission(os.W_OK))
