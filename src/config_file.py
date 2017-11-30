@@ -151,7 +151,7 @@ class ConfigurationFile(ParseJson):
         :param text_search: string, the search line
         :param line_to_add: string the line to be added
         :param comment: string the comment to be added
-        :return:
+        :return: void
         """
         line_to_add = self.make_line(line_to_add, comment)
         print("Adding Line: " + line_to_add, end="")

@@ -8,6 +8,7 @@ from src.config_file import ConfigurationFile
 class ConfigurationFileTestCase(unittest.TestCase):
     def setUp(self):
         # Arrange
+        self.restore()
         # Dependency for Make Requests
         self.file = ConfigurationFile("testjson.json")
 
@@ -94,21 +95,21 @@ class ConfigurationFileTestCase(unittest.TestCase):
         # Clean Up
         self.restore()
 
-    # def test_no_add(self):
-    #     # Arrange
-    #     file = ConfigurationFile("testjson2.json")
-    #
-    #     # Act
-    #     file.configure_append()
-    #     list_of_lines = []
-    #
-    #     with open('testfile.txt') as fin:
-    #         for line in fin:
-    #             list_of_lines.append(line)
-    #
-    #     # Assert
-    #     self.assertEqual("Errors On\n", list_of_lines[0])
-    #     self.assertEqual("Something Else On\n", list_of_lines[1])
+    def test_no_add(self):
+        # Arrange
+        file = ConfigurationFile("testjson2.json")
+
+        # Act
+        file.configure_append()
+        list_of_lines = []
+
+        with open('testfile.txt') as fin:
+            for line in fin:
+                list_of_lines.append(line)
+
+        # Assert
+        self.assertEqual("Errors Off\n", list_of_lines[0])
+        self.assertEqual("Something Else Off\n", list_of_lines[1])
 
     def restore(self):
         """

@@ -5,6 +5,7 @@ import time
 from src.package import Package
 from src.config_file import ConfigurationFile
 
+
 def install_programs():
     start_time = time.time()
 
@@ -44,11 +45,6 @@ def config_mysql():
     php = ConfigurationFile("jsonfiles/mysql.json")
     php.configure()
 
-
-def config_git():
-    php = ConfigurationFile("jsonfiles/git.json")
-    php.configure()
-
 if __name__ == "__main__":
 
     start_time_global = time.time()
@@ -57,14 +53,9 @@ if __name__ == "__main__":
     #install_programs()
 
     # then do the adjustments
-
-    # start by adjusting the
-    # php configuration file
     config_php()
     config_apache()
     config_mysql()
-    config_git()
-
 
     end_time_global = time.time()
     elapsed_time = round((end_time_global - start_time_global), 2)
