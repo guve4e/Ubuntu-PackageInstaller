@@ -230,8 +230,16 @@
   "version" : "Latest",
   "commands" : [
     {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install phpunit -y"
+      "commandDescription" : "download phar",
+      "command" : "wget https://phar.phpunit.de/phpunit-6.5.phar -y"
+    },
+    {
+      "commandDescription" : "permission",
+      "command" : "chmod +x phpunit-6.5.phar -y"
+    },
+    {
+      "commandDescription" : "move to the right directory",
+      "command" : "sudo mv phpunit-6.5.phar /usr/local/bin/phpunit -y"
     }
   ]
   },

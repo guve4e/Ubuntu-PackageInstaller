@@ -16,8 +16,10 @@ class ConfigurationFile(ParseJson):
 
     It has 3 members:
         1. file_path - path to the file that will be configured
-        2. change - dictionary of things that need to be changed
-        3. append - dictionary of things that need to be appended
+        2. comment_symbol - different config files use different comment symbols
+        3. permission - the permission the user wants the file to be left in
+        4. change - dictionary of things that need to be changed
+        5. append - dictionary of things that need to be appended
 
         """
     def __init__(self, file_name) -> None:
@@ -29,10 +31,16 @@ class ConfigurationFile(ParseJson):
         # send to ParseJson
         ParseJson.__init__(self, file_name)
 
-        self.__file_path = self.json_data['file_path']
-        self.__change = self.json_data['change']
-        self.__append = self.json_data['append']
-        self.__add = self.json_data['add']
+        try:
+            self.__file_path = self.json_data['file_path']
+            self.__comment_symbol = self.json_data['comment_symbol']
+            self.__permission = self.json_data['permission']
+            self.__change = self.json_data['change']
+            self.__append = self.json_data['append']
+            self.__add = self.json_data['add']
+        except Exception as e:
+            print("Wrong JSON file! Exception : " + e)
+
 
     @property
     def file_path(self):
@@ -66,9 +74,24 @@ class ConfigurationFile(ParseJson):
     def add(self, value):
         self.__add = value
 
+    @property
+    def comment_symbol(self):
+        return self.__comment_symbol
+
+    @comment_symbol.setter
+    def comment_symbol(self, value):
+        self.__comment_symbol = value
+
+    @property
+    def permission(self):
+        return self.__permission
+
+    @permission.setter
+    def permission(self, value):
+        self.__permission = value
+
     @classmethod
     def change_file_permission(cls, mode, file):
-
         """
         Uses chmod to change the permission of the file.
         :param mode: string chmod mode Ex: '777'
@@ -101,7 +124,7 @@ class ConfigurationFile(ParseJson):
         """
         Changes content in a file.
         :return: void, it returns early if
-        channge variable is not list
+        change variable is not list
         """
 
         # check if change is empty
@@ -113,8 +136,11 @@ class ConfigurationFile(ParseJson):
             self.replace_text(change['old'], change['new'])
 
     @classmethod
-    def make_line(cls, line, comment)-> str:
-        return line + " # " + comment + "\n"
+    def make_line(cls, line, comment, comment_symbol) -> str:
+        if not comment:
+            return line + "\n"
+        else:
+            return line + " " + comment_symbol + " " + comment + "\n"
 
     def append_text(self, line, comment):
         """
@@ -123,7 +149,7 @@ class ConfigurationFile(ParseJson):
         :param comment:
         :return:
         """
-        line = self.make_line(line, comment)
+        line = self.make_line(line, comment, self.__comment_symbol)
 
         print("Appending Line: " + line, end="")
 
@@ -143,7 +169,10 @@ class ConfigurationFile(ParseJson):
             return
 
         for append in self.__append:
-            self.append_text(append['line'], append['comment'])
+            # then check if this line is already appended
+            # and if not, append it
+            if not self.line_exists(append):
+                self.append_text(append['line'], append['comment'])
 
     def add_text(self, text_search, line_to_add, comment):
         """
@@ -153,7 +182,7 @@ class ConfigurationFile(ParseJson):
         :param comment: string the comment to be added
         :return: void
         """
-        line_to_add = self.make_line(line_to_add, comment)
+        line_to_add = self.make_line(line_to_add, comment, self.__comment_symbol)
         print("Adding Line: " + line_to_add, end="")
 
         with fileinput.FileInput(self.__file_path, inplace=True, backup='.bak') as file:
@@ -175,7 +204,10 @@ class ConfigurationFile(ParseJson):
             return
 
         for add in self.__add:
-            self.add_text(add['after'], add['line'], add['comment'])
+            # then check if this line is already appended
+            # and if not, add it
+            if not self.line_exists(add):
+                self.add_text(add['after'], add['line'], add['comment'])
 
     def configure(self):
 
@@ -195,7 +227,22 @@ class ConfigurationFile(ParseJson):
         self.configure_add()
 
         # change closed permission
-        self.change_file_permission('444', self.__file_path)
+        self.change_file_permission(self.__permission, self.__file_path)
 
+    def line_exists(self, search_line):
+        """
+        Checks if line is already in the file.
+        If so return true, if not false.
+        :param search_line: dict containing line and comment
+        the line to search for
+        :return: boolean
+        """
+        search_line = self.make_line(search_line['line'], "", self.__comment_symbol)
 
+        with fileinput.FileInput(self.__file_path, inplace=False) as file:
+            for line in file:
+                if line == search_line:
+                    print("The Line already exists : " + search_line, end='')
+                    return True
 
+        return False

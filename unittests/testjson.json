@@ -1,5 +1,7 @@
 {
   "file_path" : "testfile.txt",
+  "comment_symbol" : "#",
+  "permission" : "444",
   "change" : [
     {
       "old" : "Errors Off",
@@ -13,11 +15,15 @@
   "append" : [
     {
       "line" : "Line 1",
-      "comment" : "Comment 1"
+      "comment" : ""
     },
     {
       "line" : "Line 2",
       "comment" : "Comment 2"
+    },
+    {
+      "line" : "Appended Line",
+      "comment" : ""
     }
   ],
   "add" : [
@@ -30,6 +36,10 @@
       "after" : "Something Else Off",
       "line" : "Insert in the middle 2",
       "comment" : "Comment 2"
+    },
+    {
+      "line" : "Appended Line",
+      "comment" : ""
     }
   ]
 }

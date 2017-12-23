@@ -1,5 +1,7 @@
 {
   "file_path" : "/etc/mysql/mysql.conf.d/mysqld.cnf",
+  "comment_symbol" : "#",
+  "permission" : "0644",
   "change" : "",
   "append" : "",
   "add" : [

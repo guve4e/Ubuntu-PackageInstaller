@@ -1,5 +1,7 @@
 {
   "file_path" : "testfile.txt",
+  "comment_symbol" : "#",
+  "permission" : "444",
   "change" :
   [
     {
