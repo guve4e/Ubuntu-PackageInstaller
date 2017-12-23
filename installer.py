@@ -11,18 +11,30 @@ from src.config_file import ConfigurationFile
 from src.parse_cmd_args import CmdArgumentsParser
 
 
-def get_file_list(dir_path):
+def get_file_list(conf_name) -> []:
     """
-    Retrieves the names of files in
-    certain directory.
-    :param dir_path:
-    :return:
+    Retrieves a list of file names (paths)
+    :param conf_name: the name of config folder
+    :return: list of file names
     """
-    files = [f for f in listdir(dir_path) if isfile(join(dir_path, f))]
-    # we need only json files
-    files = filter(lambda k: '.json' in k, files)
 
-    return list(files)
+    dir_name = os.path.dirname(__file__)
+    conf_dir_path = dir_name + "/configs/" + conf_name
+
+    if not os.path.exists(conf_dir_path):
+        raise IOError(conf_name + " is not a valid configuration folder" + "\n")
+
+    filepath = os.path.join(dir_name, "configs", conf_name)
+    all_files = [f for f in listdir(filepath) if isfile(join(filepath, f))]
+
+    # we need only json files
+    json_files = filter(lambda k: '.json' in k, all_files)
+    files_list = list(json_files)
+    # adjust each element
+    fileNames = map(lambda x: conf_name + "/" + x, files_list)
+
+    return list(fileNames)
+
 
 def install_programs():
     start_time = time.time()
@@ -43,51 +55,42 @@ def install_programs():
     print("It took " + str(elapsed_time) + " seconds to install packages!")
 
 
-def config_php():
+def configure_files(config_name):
+    start_time = time.time()
+
+    files = get_file_list(config_name)
+
+    for file in files:
+        config("configs/" + file)
+
+    end_time = time.time()
+    elapsed_time = round((end_time - start_time), 2)
+    print("=====================================")
+    print("It took " + str(elapsed_time) + " seconds to configure files!")
+
+
+def config(file_path):
     """
     Configures the php ini file.
     Loads json file with new
     configurations.
     :return: void
     """
-    php = ConfigurationFile("configs/php.json")
-    php.configure()
+    cf = ConfigurationFile(file_path)
+    cf.configure()
 
-
-def config_apache():
-    php = ConfigurationFile("configs/apache.json")
-    php.configure()
-
-
-def config_mysql():
-    php = ConfigurationFile("configs/mysql.json")
-    php.configure()
 
 if __name__ == "__main__":
 
     start_time_global = time.time()
 
-    #cmd = CmdArgumentsParser(sys.argv)
-    conf_name = "home"
-
-    dir = os.path.dirname(__file__)
-
-    filename = os.path.join(dir, "configs", conf_name)
-
-
-    files = get_file_list(filename)
-
-    ## loop trough all of them and
-    ## call a generic method passing a path
-
+    cmd = CmdArgumentsParser(sys.argv)
 
     # install packages first
-    #install_programs()
+    # install_programs()
 
     # then do the adjustments
-    # config_php()
-    # config_apache()
-    # config_mysql()
+    configure_files(cmd.config_name)
 
     end_time_global = time.time()
     elapsed_time = round((end_time_global - start_time_global), 2)

@@ -17,17 +17,16 @@ class CmdArgumentsParser(object):
         self.__verbose = False
 
         # methods
-        print("Arguments are : " + str(args))
         self.__validate_args(args)
         self.__retrieve_config_name(args)
         self.__retrieve_verbose(args)
 
     @property
-    def project_name(self):
+    def config_name(self):
         return self.__config_name
 
-    @project_name.setter
-    def project_name(self, value):
+    @config_name.setter
+    def config_name(self, value):
         self.__config_name = value
 
     @property
@@ -59,7 +58,7 @@ class CmdArgumentsParser(object):
         :param args: args array
         """
 
-        self.__project_name = args[1]
+        self.__config_name = args[1]
 
     def __retrieve_verbose(self, args):
         """
@@ -68,5 +67,5 @@ class CmdArgumentsParser(object):
         :param args:
         :return:
         """
-
-        self.__verbose = args[2]
+        if len(args) == 3:
+            self.__verbose = args[2]

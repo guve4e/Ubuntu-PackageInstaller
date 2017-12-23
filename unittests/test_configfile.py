@@ -81,16 +81,6 @@ class ConfigurationFileTestCase(unittest.TestCase):
         # Clean Up
         self.restore()
 
-    # def test_line_exists(self):
-    #     # Arrange
-    #
-    #
-    #     # Act
-    #     res = self.file.line_exists("Something Else Off")
-    #
-    #     # Assert
-    #     self.assertEqual(True, res)
-
     def test_configure_append(self):
 
         # Act

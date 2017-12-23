@@ -39,7 +39,7 @@ class ConfigurationFile(ParseJson):
             self.__append = self.json_data['append']
             self.__add = self.json_data['add']
         except Exception as e:
-            print("Wrong JSON file! Exception : " + e)
+            print("Wrong JSON file! Exception : " + str(e))
 
 
     @property
