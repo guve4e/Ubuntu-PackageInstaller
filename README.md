@@ -2,18 +2,18 @@
 Python script that installs packages
 
 # How to run?
-Compile runscript.c
+Compile installer.c
 ```
-gcc -o runscript runscript.c
+gcc -o installer runscript.c
 ```
 Then give it permission.
 ```
-sudo chown root:root runscript installer.py
-sudo chmod 4755 runscript installer.py
+sudo chown root:root installer installer.py
+sudo chmod 4755 installer installer.py
 ```
 Run  
 ```
-./runscript
+./installer
 ```
 
 Or execute:
@@ -23,5 +23,5 @@ chmod +x run_first.sh
 ```
 And then Run  
 ```
-./runscript
+./installer
 ```
