@@ -16,3 +16,12 @@ Run
 ./runscript
 ```
 
+Or execute:
+```
+chmod +x run_first.sh
+./run_first.sh
+```
+And then Run  
+```
+./runscript
+```

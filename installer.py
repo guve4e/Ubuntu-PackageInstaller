@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 import json
 import time
+import sys
 
 from src.package import Package
 from src.config_file import ConfigurationFile
+from src.parse_cmd_args import CmdArgumentsParser
 
 
 def install_programs():
@@ -49,13 +51,17 @@ if __name__ == "__main__":
 
     start_time_global = time.time()
 
+    cmd = CmdArgumentsParser("home -v")
+
+    # cmd = CmdArgumentsParser(sys.argv)
+
     # install packages first
     #install_programs()
 
     # then do the adjustments
-    config_php()
-    config_apache()
-    config_mysql()
+    # config_php()
+    # config_apache()
+    # config_mysql()
 
     end_time_global = time.time()
     elapsed_time = round((end_time_global - start_time_global), 2)
