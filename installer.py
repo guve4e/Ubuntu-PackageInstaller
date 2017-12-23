@@ -2,17 +2,33 @@
 import json
 import time
 import sys
+import os
 
+from os import listdir
+from os.path import isfile, join
 from src.package import Package
 from src.config_file import ConfigurationFile
 from src.parse_cmd_args import CmdArgumentsParser
 
 
+def get_file_list(dir_path):
+    """
+    Retrieves the names of files in
+    certain directory.
+    :param dir_path:
+    :return:
+    """
+    files = [f for f in listdir(dir_path) if isfile(join(dir_path, f))]
+    # we need only json files
+    files = filter(lambda k: '.json' in k, files)
+
+    return list(files)
+
 def install_programs():
     start_time = time.time()
 
     try:
-        with open('/jsonfiles/programs.json') as json_data:
+        with open('/configs/programs.json') as json_data:
             # for each json object, load json
             programs = json.load(json_data)
             # parse json
@@ -34,26 +50,36 @@ def config_php():
     configurations.
     :return: void
     """
-    php = ConfigurationFile("jsonfiles/php.json")
+    php = ConfigurationFile("configs/php.json")
     php.configure()
 
 
 def config_apache():
-    php = ConfigurationFile("jsonfiles/apache.json")
+    php = ConfigurationFile("configs/apache.json")
     php.configure()
 
 
 def config_mysql():
-    php = ConfigurationFile("jsonfiles/mysql.json")
+    php = ConfigurationFile("configs/mysql.json")
     php.configure()
 
 if __name__ == "__main__":
 
     start_time_global = time.time()
 
-    cmd = CmdArgumentsParser("home -v")
+    #cmd = CmdArgumentsParser(sys.argv)
+    conf_name = "home"
 
-    # cmd = CmdArgumentsParser(sys.argv)
+    dir = os.path.dirname(__file__)
+
+    filename = os.path.join(dir, "configs", conf_name)
+
+
+    files = get_file_list(filename)
+
+    ## loop trough all of them and
+    ## call a generic method passing a path
+
 
     # install packages first
     #install_programs()
