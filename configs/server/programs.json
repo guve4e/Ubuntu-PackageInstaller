@@ -1,0 +1,259 @@
+[
+  {
+  "name" : "Apache",
+  "comment" : "Apache2 Installer",
+  "package name" : "apache2",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install apache2 -y"
+    }
+  ]
+  },
+  {
+  "name" : "MySQL",
+  "comment" : "MySQL Installer",
+  "package name" : "mysql-server",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install mysql-server -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP",
+  "comment" : "PHP Installer",
+  "package name" : "php7.0",
+  "version" : "7.0",
+  "commands" : [
+    {
+      "commandDescription" : "install python",
+      "command" : "sudo apt-get install python-software-properties -y"
+    },
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:ondrej/php"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install -y php7.0 -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - MySQL",
+  "comment" : "PHP7 - MySQL Installer",
+  "package name" : "php7.0-mysql",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-mysql -y"
+    }
+  ]
+  },
+   {
+  "name" : "PHP - MyAdmin",
+  "comment" : "PHP - MyAdmin Installer",
+  "package name" : "phpmyadmin",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install phpmyadmin php-mbstring php-gettext -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - CURL",
+  "comment" : "PHP7 - CURL Installer",
+  "package name" : "php7.0-curl",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-curl -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - JSON",
+  "comment" : "PHP7 - JSON Installer",
+  "package name" : "php7.0-json",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-json -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - CGI",
+  "comment" : "PHP7 - CGI Installer",
+  "package name" : "php7.0-cgi",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-cgi -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - X-DEBUG",
+  "comment" : "PHP7 - X-DEBUG Installer",
+  "package name" : "php-xdebug",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php-xdebug -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP7 - MBString",
+  "comment" : "PHP7 - MBString Installer",
+  "package name" : "php7.0-mbstring",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-mbstring -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP - PHPUNIT",
+  "comment" : "PHP Unit tests",
+  "package name" : "phpunit",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "download phar",
+      "command" : "wget https://phar.phpunit.de/phpunit-6.5.phar -y"
+    },
+    {
+      "commandDescription" : "permission",
+      "command" : "chmod +x phpunit-6.5.phar -y"
+    },
+    {
+      "commandDescription" : "move to the right directory",
+      "command" : "sudo mv phpunit-6.5.phar /usr/local/bin/phpunit -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP - XML-WRITER",
+  "comment" : "XMLWriter PHP Module",
+  "package name" : "php7.0-xml",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install php7.0-xml -y"
+    }
+  ]
+  },
+  {
+  "name" : "Curl",
+  "comment" : "Curl Installer",
+  "package name" : "curl",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install curl -y"
+    }
+  ]
+  },
+  {
+  "name" : "Git",
+  "comment" : "Git Installer",
+  "package name" : "git",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install git -y"
+    }
+  ]
+  },
+  {
+  "name" : "Meld",
+  "comment" : "Meld Installer",
+  "package name" : "meld",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install meld -y"
+    }
+  ]
+  },
+  {
+  "name" : "G++",
+  "comment" : "G++ Compiler Installer",
+  "package name" : "g++",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install g++ -y"
+    }
+  ]
+  },
+  {
+  "name" : "CMake",
+  "comment" : "CMake Installer",
+  "package name" : "cmake",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install cmake -y"
+    }
+  ]
+  },
+   {
+  "name" : "Netstat and Net Tools",
+  "comment" : "Netstat Installer",
+  "package name" : "net-tools",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install net-tools -y"
+    }
+  ]
+  },
+  {
+  "name" : "Connector/C++",
+  "comment" : "Connector/C++ MySQL interface Installer",
+  "package name" : "libmysqlcppconn-dev",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "apt-get install libmysqlcppconn-dev -y"
+    }
+  ]
+  },
+  {
+  "name" : "Python PIP3",
+  "comment" : "pip is a package management system used to install and manage software packages written in Python",
+  "package name" : "pythin3-pip",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install python3-pip -y"
+    }
+  ]
+  }
+]
+
