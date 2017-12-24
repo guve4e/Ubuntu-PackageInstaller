@@ -24,23 +24,27 @@ def get_file_list(conf_name) -> []:
     if not os.path.exists(conf_dir_path):
         raise IOError(conf_name + " is not a valid configuration folder" + "\n")
 
-    filepath = os.path.join(dir_name, "configs", conf_name)
-    all_files = [f for f in listdir(filepath) if isfile(join(filepath, f))]
+    file_path = os.path.join(dir_name, "configs", conf_name)
+    all_files = [f for f in listdir(file_path) if isfile(join(file_path, f))]
 
     # we need only json files
     json_files = filter(lambda k: '.json' in k, all_files)
+    json_files = filter(lambda k: not 'programs' in k, json_files)
     files_list = list(json_files)
     # adjust each element
-    fileNames = map(lambda x: conf_name + "/" + x, files_list)
+    file_names = map(lambda x: conf_name + "/" + x, files_list)
 
-    return list(fileNames)
+    return list(file_names)
 
 
-def install_programs():
+def install_programs(config_name):
     start_time = time.time()
 
+    dir_name = os.path.dirname(__file__)
+    file = dir_name + "/configs/" + config_name + '/programs.json'
+
     try:
-        with open('/configs/programs.json') as json_data:
+        with open(file) as json_data:
             # for each json object, load json
             programs = json.load(json_data)
             # parse json
@@ -87,7 +91,7 @@ if __name__ == "__main__":
     cmd = CmdArgumentsParser(sys.argv)
 
     # install packages first
-    # install_programs()
+    install_programs(cmd.config_name)
 
     # then do the adjustments
     configure_files(cmd.config_name)
