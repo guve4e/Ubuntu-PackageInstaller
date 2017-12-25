@@ -1,0 +1,26 @@
+{
+  "file_path" : " /etc/ssmtp/ssmtp.conf",
+  "comment_symbol" : "#",
+  "permission" : "777",
+  "change" : "",
+  "append" : [
+    {
+      "line" : "mailhub=smtp.gmail.com:587",
+      "comment" : ""
+    },
+    {
+      "line" : "UseSTARTTLS=YES",
+      "comment" : ""
+    },
+    {
+      "line" : "AuthUser=guve4e@gmail.com",
+      "comment" : ""
+    },
+    {
+      "line" : "AuthPass=tvoitasem4icA1@",
+      "comment" : ""
+    }
+  ],
+  "add" : ""
+}
+ 

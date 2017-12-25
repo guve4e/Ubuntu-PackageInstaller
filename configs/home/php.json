@@ -41,5 +41,11 @@
       "comment" : ""
     }
   ],
-  "add" : ""
+  "add" : [
+    {
+      "after" : ";sendmail_path",
+      "line" : "sendmail_path = /usr/sbin/sendmail -t",
+      "comment" : ""
+    }
+  ]
 }
