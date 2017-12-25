@@ -184,6 +184,18 @@
   ]
   },
   {
+  "name" : "PHP - Send Mail",
+  "comment" : "PHP sendmail",
+  "package name" : "ssmtp",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install ssmtp -y"
+    }
+  ]
+  },
+  {
   "name" : "Curl",
   "comment" : "Curl Installer",
   "package name" : "curl",
