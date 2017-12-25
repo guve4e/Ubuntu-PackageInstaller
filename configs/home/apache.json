@@ -6,7 +6,7 @@
   "append" : [
     {
       "line" : "Include /etc/phpmyadmin/apache.conf",
-      "comment" : "Include the phpmyadmin access"
+      "comment" : ""
     }
   ],
   "add" : ""

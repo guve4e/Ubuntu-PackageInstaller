@@ -160,6 +160,30 @@
   ]
   },
   {
+  "name" : "PHP - PHP7.0 library for apache",
+  "comment" : "PHP libapache2 Mod",
+  "package name" : "libapache2-mod-php7.0",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install libapache2-mod-php7.0 -y"
+    }
+  ]
+  },
+  {
+  "name" : "PHP - Send Mail",
+  "comment" : "PHP sendmail",
+  "package name" : "sendmail",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install sendmail -y"
+    }
+  ]
+  },
+  {
   "name" : "Curl",
   "comment" : "Curl Installer",
   "package name" : "curl",
@@ -256,4 +280,3 @@
   ]
   }
 ]
-
