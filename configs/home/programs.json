@@ -256,6 +256,18 @@
   ]
   },
   {
+  "name" : "PHP - Send Mail",
+  "comment" : "PHP sendmail",
+  "package name" : "ssmtp",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install ssmtp -y"
+    }
+  ]
+  },
+  {
   "name" : "GIMP",
   "comment" : "GIMP Installer",
   "package name" : "gimp",
@@ -476,6 +488,54 @@
     {
       "commandDescription" : "run",
       "command" : "~/.dropbox-dist/dropboxd"
+    }
+  ]
+  },
+  {
+  "name" : "GCC Multilib Prerequisite for Android Studio",
+  "comment" : "gcc-multilib is useful for cross-compiling, that is, compiling a program to run on a different processor architecture.",
+  "package name" : "gcc-multilib",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install gcc-multilib -y"
+    }
+  ]
+  },
+  {
+  "name" : "G++ Multilib Prerequisite for Android Studio",
+  "comment" : "g++-multilib is useful for cross-compiling, that is, compiling a program to run on a different processor architecture.",
+  "package name" : "g++-multilib",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install g++-multilib -y"
+    }
+  ]
+  },
+  {
+  "name" : "AMD64 Libraries Prerequisite for Android Studio",
+  "comment" : "Embedded GNU C Library: 32-bit development libraries for AMD64",
+  "package name" : "libc6-dev-i386",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install libc6-dev-i386 -y"
+    }
+  ]
+  },
+   {
+  "name" : "QEMU Prerequisite for Android Studio",
+  "comment" : "QEMU is a generic and open source machine emulator and virtualizer.",
+  "package name" : "qemu-kvm mesa-utils",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install qemu-kvm mesa-utils -y"
     }
   ]
   }

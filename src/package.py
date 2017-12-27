@@ -193,7 +193,7 @@ class Package(object):
     @staticmethod
     def print_info(package):
         # print some info
-        print("######################################")
+        print("###################################################")
         print("Installing : " + package['name'])
         print("Comments   : " + package['comment'])
         print("Version    : " + package['version'])

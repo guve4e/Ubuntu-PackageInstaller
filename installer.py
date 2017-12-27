@@ -10,6 +10,10 @@ from src.package import Package
 from src.config_file import ConfigurationFile
 from src.parse_cmd_args import CmdArgumentsParser
 
+"""
+Driver file.
+"""
+
 
 def get_file_list(conf_name) -> []:
     """
@@ -38,8 +42,16 @@ def get_file_list(conf_name) -> []:
 
 
 def install_programs(config_name):
+    """
+    Searches for programs.json file in the
+    directory and it tries to install each
+    package
+    :param config_name:
+    :return: void
+    """
     start_time = time.time()
 
+    # get the right path
     dir_name = os.path.dirname(__file__)
     file = dir_name + "/configs/" + config_name + '/programs.json'
 
@@ -60,12 +72,23 @@ def install_programs(config_name):
 
 
 def configure_files(config_name):
+    """
+    Loops for all json files except programs.json
+    and it configures each config file accordingly.
+    :param config_name: the name of the configuration
+    :return: void
+    """
+
     start_time = time.time()
 
-    files = get_file_list(config_name)
+    try:
+        files = get_file_list(config_name)
 
-    for file in files:
-        config("configs/" + file)
+        for file in files:
+            config("configs/" + file)
+
+    except IOError as e:
+        print(e.strerror)
 
     end_time = time.time()
     elapsed_time = round((end_time - start_time), 2)
