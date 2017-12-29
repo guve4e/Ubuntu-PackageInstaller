@@ -1,0 +1,38 @@
+[
+  {
+  "prerequisites" : [
+    {
+      "name" : "Kate",
+      "comment" : "Kate Installer",
+      "package name" : "kate",
+      "version" : "Latest",
+      "commands" : [
+        {
+          "commandDescription": "install",
+          "command": "sudo apt-get install kate -y"
+        }
+      ]
+    },
+    {
+      "name" : "WGET",
+      "comment" : "WGET Installer",
+      "package name" : "wget",
+      "version" : "Latest",
+      "commands" : [
+        {
+        "commandDescription" : "install",
+        "command" : "sudo apt-get install wget -y"
+        }
+      ]
+    }
+    ],
+    "download_url" : "http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "some command -y"
+    }
+  ],
+    "directory" : "/tmp/test"
+  }
+]

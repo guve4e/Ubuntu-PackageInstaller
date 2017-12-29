@@ -14,7 +14,7 @@ class ConfigurationFile(ParseJson):
     expensive operation, as you are creating a sub-shell
     and invoking /bin/chmod directly.
 
-    It has 3 members:
+    It has 5 members:
         1. file_path - path to the file that will be configured
         2. comment_symbol - different config files use different comment symbols
         3. permission - the permission the user wants the file to be left in
@@ -91,7 +91,7 @@ class ConfigurationFile(ParseJson):
         self.__permission = value
 
     @classmethod
-    def change_file_permission(cls, mode, file):
+    def change_file_permission(cls, mode, file) -> None:
         """
         Uses chmod to change the permission of the file.
         :param mode: string chmod mode Ex: '777'
@@ -106,7 +106,7 @@ class ConfigurationFile(ParseJson):
             output = e.output
             print(output)
 
-    def replace_text(self, text_search, text_replace):
+    def replace_text(self, text_search, text_replace) -> None:
         """
         Replaces pieces of text with other text.
         :param text_search: string text to be searched
@@ -120,7 +120,7 @@ class ConfigurationFile(ParseJson):
             for line in file:
                 print(line.replace(text_search, text_replace), end='')
 
-    def configure_change(self):
+    def configure_change(self) -> None:
         """
         Changes content in a file.
         :return: void, it returns early if
@@ -156,7 +156,7 @@ class ConfigurationFile(ParseJson):
         with open(self.file_path, "a") as file:
             file.write(line)
 
-    def configure_append(self):
+    def configure_append(self) -> None:
         """
         Appends content to file.
         :return: void, it returns early if
@@ -174,7 +174,7 @@ class ConfigurationFile(ParseJson):
             if not self.line_exists(append):
                 self.append_text(append['line'], append['comment'])
 
-    def add_text(self, text_search, line_to_add, comment):
+    def add_text(self, text_search, line_to_add, comment) -> None:
         """
         Adds text below particular line in the file.
         :param text_search: string, the search line
@@ -191,7 +191,7 @@ class ConfigurationFile(ParseJson):
                 if file_line.startswith(text_search):
                     print(line_to_add, end='')
 
-    def configure_add(self):
+    def configure_add(self) -> None:
         """
         Adds content to file, after a particular piece of text.
         :return: void, it returns early if
@@ -229,7 +229,7 @@ class ConfigurationFile(ParseJson):
         # change closed permission
         self.change_file_permission(self.__permission, self.__file_path)
 
-    def line_exists(self, search_line):
+    def line_exists(self, search_line) -> bool:
         """
         Checks if line is already in the file.
         If so return true, if not false.

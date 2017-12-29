@@ -1,5 +1,5 @@
 {
-  "file_path" : " /etc/ssmtp/ssmtp.conf",
+  "file_path" : "/etc/ssmtp/ssmtp.conf",
   "comment_symbol" : "#",
   "permission" : "777",
   "change" : "",

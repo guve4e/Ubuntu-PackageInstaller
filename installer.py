@@ -9,6 +9,7 @@ from os.path import isfile, join
 from src.package import Package
 from src.config_file import ConfigurationFile
 from src.parse_cmd_args import CmdArgumentsParser
+from src.program_installer import ProgramInstaller
 
 """
 Driver file.
@@ -33,7 +34,7 @@ def get_file_list(conf_name) -> []:
 
     # we need only json files
     json_files = filter(lambda k: '.json' in k, all_files)
-    json_files = filter(lambda k: not 'programs' in k, json_files)
+    json_files = filter(lambda k: not 'packages' in k and not 'programs' in k, json_files)
     files_list = list(json_files)
     # adjust each element
     file_names = map(lambda x: conf_name + "/" + x, files_list)
@@ -45,7 +46,7 @@ def install_programs(config_name):
     """
     Searches for programs.json file in the
     directory and it tries to install each
-    package
+    program
     :param config_name:
     :return: void
     """
@@ -54,6 +55,32 @@ def install_programs(config_name):
     # get the right path
     dir_name = os.path.dirname(__file__)
     file = dir_name + "/configs/" + config_name + '/programs.json'
+
+    p = ProgramInstaller(file)
+    p.install_programs()
+
+    ###
+    #####
+
+    end_time = time.time()
+    elapsed_time = round((end_time - start_time), 2)
+    print("=====================================")
+    print("It took " + str(elapsed_time) + " seconds to install packages!")
+
+
+def install_packages(config_name):
+    """
+    Searches for packages.json file in the
+    directory and it tries to install each
+    package
+    :param config_name:
+    :return: void
+    """
+    start_time = time.time()
+
+    # get the right path
+    dir_name = os.path.dirname(__file__)
+    file = dir_name + "/configs/" + config_name + '/packages.json'
 
     try:
         with open(file) as json_data:
@@ -114,6 +141,9 @@ if __name__ == "__main__":
     cmd = CmdArgumentsParser(sys.argv)
 
     # install packages first
+    install_packages(cmd.config_name)
+
+    # then install programs
     install_programs(cmd.config_name)
 
     # then do the adjustments

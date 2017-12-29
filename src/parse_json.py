@@ -42,7 +42,7 @@ class ParseJson(object):
     def json_file(self, value):
         self.__json_file = value
 
-    def load_json(self):
+    def load_json(self) -> []:
         """
         This methods loads the json file data
         into dictionary 

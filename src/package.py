@@ -199,28 +199,32 @@ class Package(object):
         print("Version    : " + package['version'])
 
     @staticmethod
-    def parse(program):
+    def run_package_installer(element):
+        # print info
+        Package.print_info(element)
+        # execute apt-cache
+        output = Package.apt_cache(element)
+        # get the version
+        version = Package.extract_version(output)
+
+        # check if installed
+        if not Package.is_installed(version):
+            # if not, installed it
+            Package.install(element)
+        else:
+            # else, just address the user
+            # remove certain chars
+            version = Package.remove_chars(version)
+
+            print("This Package is already installed! Version is " + version + "\n")
+
+    @staticmethod
+    def parse(package):
         """
         Parses each json object
-        :param program: is json object containing
+        :param package: is json object containing
         information about the program to be installed
         :return: void
         """
-        for element in program:
-            # print info
-            Package.print_info(element)
-            # execute apt-cache
-            output = Package.apt_cache(element)
-            # get the version
-            version = Package.extract_version(output)
-
-            # check if installed
-            if not Package.is_installed(version):
-                # if not, installed it
-                Package.install(element)
-            else:
-                # else, just address the user
-                # remove certain chars
-                version = Package.remove_chars(version)
-
-                print("This Package is already installed! Version is " + version + "\n")
+        for element in package:
+            Package.run_package_installer(element)
