@@ -307,7 +307,7 @@
   "commands" : [
     {
       "commandDescription" : "repository",
-      "command" : "sudo add-apt-repository ppa:videolan/master-daily"
+      "command" : "sudo add-apt-repository ppa:videolan/stable-daily"
     },
     {
       "commandDescription" : "install",
@@ -468,6 +468,22 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install scala -y"
+    }
+  ]
+  },
+  {
+  "name" : "Wire Shark",
+  "comment" : "Networking tool",
+  "package name" : "wireshark",
+  "version" : "Latest",
+  "commands" : [
+     {
+      "commandDescription" : "add repository",
+      "command" : "sudo add-apt-repository ppa:wireshark-dev/stable"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install wireshark -y"
     }
   ]
   },
