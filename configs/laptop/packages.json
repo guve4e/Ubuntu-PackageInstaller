@@ -1,21 +1,5 @@
 [
   {
-  "name" : "G-Drive",
-  "comment" : "G-Drive Installer",
-  "package name" : "grive",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "repository",
-      "command" : "sudo add-apt-repository ppa:nilarimogard/webupd8"
-    },
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install grive -y"
-    }
-  ]
-  },
-  {
   "name" : "Chrome",
   "comment" : "Chrome Installer",
   "package name" : "chromium-browser",
@@ -320,6 +304,34 @@
   ]
   },
   {
+  "name" : "Unity Tweak",
+  "comment" : "Unity Tweak Installer",
+  "package name" : "unity-tweak-tool",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo apt-get install unity-tweak-tool -y"
+    }
+  ]
+  },
+  {
+  "name" : "Cairo Dock",
+  "comment" : "Cairo Dock",
+  "package name" : "cairo-dock",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "repository",
+      "command" : "sudo add-apt-repository ppa:cairo-dock-team/ppa"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install cairo-dock cairo-dock-plug-ins -y"
+    }
+  ]
+  },
+  {
   "name" : "Guake Terminal",
   "comment" : "Guake Terminal Installer",
   "package name" : "guake",
@@ -431,7 +443,7 @@
     }
   ]
   },
-  {
+    {
   "name" : "PyMysql",
   "comment" : "MySQL Connector for python",
   "package name" : "python3-pymysql",
