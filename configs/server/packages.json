@@ -38,6 +38,10 @@
       "command" : "sudo add-apt-repository ppa:ondrej/php"
     },
     {
+      "commandDescription" : "update",
+      "command" : "sudo apt update"
+    },
+    {
       "commandDescription" : "install",
       "command" : "sudo apt-get install -y php7.0 -y"
     }
@@ -282,12 +286,64 @@
   {
   "name" : "Python PIP3",
   "comment" : "pip is a package management system used to install and manage software packages written in Python",
-  "package name" : "pythin3-pip",
+  "package name" : "python3-pip",
   "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install python3-pip -y"
+    }
+  ]
+  },
+  {
+  "name" : "Composer",
+  "comment" : "Dependency manager for PHP.",
+  "package name" : "composer",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt-get install composer -y"
+    }
+  ]
+  },
+  {
+  "name" : "Java",
+  "comment" : "No Comment",
+  "package name" : "default-jdk",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "install jre",
+      "command" : "sudo apt-get install default-jre -y"
+    },
+    {
+      "commandDescription" : "install jdk",
+      "command" : "sudo apt-get install default-jdk -y"
+    }
+  ]
+  },
+  {
+  "name" : "Jenkins",
+  "comment" : "Continuous Integration tool ",
+  "package name" : "jenkins",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "download",
+      "command" : "wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -"
+    },
+    {
+      "commandDescription" : "add repository",
+      "command" : "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'"
+    },
+    {
+      "commandDescription" : "update",
+      "command" : "sudo apt update"
+    },
+    {
+      "commandDescription" : "install",
+      "command" : "sudo apt install jenkins -y"
     }
   ]
   }
