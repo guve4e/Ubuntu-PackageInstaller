@@ -16,6 +16,8 @@ class PackageConverter(object):
 
         with open(file_name) as fin:
             for line in fin:
+                line = self.serialize_line()
+
                 self.list_packages.append(line)
 
         dict_packages = self.create_package_dictionary()
@@ -48,6 +50,12 @@ class PackageConverter(object):
 
     def dump_json(self, list_packages: []):
         self.json_packages = json.dumps(list_packages)
+
+    def serialize_line(self, line: str):
+        s = str.strip("\t")
+        s = s.strip("\n")
+        s = s.strip("install")
+        return s
 
 
 if __name__ == "__main__":
