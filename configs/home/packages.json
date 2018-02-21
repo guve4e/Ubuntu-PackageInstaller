@@ -510,6 +510,30 @@
       "command" : "~/.dropbox-dist/dropboxd"
     }
   ]
-  }
+  },
+  {
+    "name" : "PyCharm",
+    "comment" : "JetBrains",
+    "package name" : "pycharm-professional",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install with snap",
+        "command" : "sudo snap install pycharm-professional --classic -y"
+      }
+    ]
+    },
+  {
+    "name" : "PhpStorm",
+    "comment" : "JetBrains",
+    "package name" : "phpstorm",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install with snap",
+        "command" : "sudo snap install phpstorm --classic -y"
+      }
+    ]
+    }
 ]
 
