@@ -7,17 +7,17 @@ class PackageConverter(object):
         :param file_name: string: the name of the file
 
         """
-        self.list_packages = []
+        self.__list_packages = []
+        self.__load_list_packages(file_name)
+        self.__list_dict_packages = self.__create_package_dictionary()
 
+    def __load_list_packages(self, file_name) -> None:
         with open(file_name) as fin:
             for line in fin:
-                line = self.serialize_line()
+                line = self.serialize_line(line)
+                self.__list_packages.append(line)
 
-                self.list_packages.append(line)
-
-        dict_packages = self.create_package_dictionary()
-
-    def create_package_dictionary(self) -> [{}]:
+    def __create_package_dictionary(self) -> [{}]:
         """
         Loops trough the list of packages
         and creates dictionary.
@@ -25,7 +25,7 @@ class PackageConverter(object):
         """
         list_packages = [{}]
 
-        for package in self.list_packages:
+        for package in self.__list_packages:
             package_dict = {
                 "name": package.title(),
                 "comment": "No comment",
@@ -42,16 +42,10 @@ class PackageConverter(object):
         return list_packages
 
     def serialize_line(self, line: str):
-        s = str.strip("\t")
-        s = s.strip("\n")
-        s = s.strip("install")
+        s = line.replace("\t", "")
+        s = s.replace("\n", "")
+        s = s.replace("install", "")
         return s
 
-
-if __name__ == "__main__":
-
-    packages = PackageConverter("installed.txt")
-
-    # parse json
-    Package.parse(packages)
-
+    def get_packages(self) -> []:
+        return self.__list_dict_packages

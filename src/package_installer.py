@@ -203,6 +203,10 @@ class PackageInstaller(object):
         print("Version    : " + package['version'])
 
     def __run_package_installer(self, package):
+
+        if not package:
+            return
+
         # print info
         PackageInstaller.__print_info(package)
         # execute apt-cache

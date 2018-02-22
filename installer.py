@@ -149,7 +149,8 @@ if __name__ == "__main__":
     # from text file
     if cmd.is_raw_packages():
         packages = PackageConverter(cmd.file_name)
-        install_packages(packages)
+        p = packages.get_packages()
+        install_packages(p)
     else:
         # install packages first
         load_packages(cmd.config_name)
