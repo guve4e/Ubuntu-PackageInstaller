@@ -14,7 +14,6 @@ TMP_DIR = 'tmp/programinstaller'
 class ProgramInstaller:
     """
     Downloads, unzips, and moves programs to specific folders.
-
     """
     def __init__(self, file_name) -> None:
         """

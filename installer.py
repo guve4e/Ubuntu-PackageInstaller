@@ -6,6 +6,8 @@ import os
 
 from os import listdir
 from os.path import isfile, join
+
+from src.PackageConverter import PackageConverter
 from src.config_file import ConfigurationFile
 from src.package_installer import PackageInstaller
 from src.parse_cmd_args import CmdArgumentsParser
@@ -14,6 +16,7 @@ from src.program_installer import ProgramInstaller
 """
 Driver file.
 """
+
 
 def get_file_list(conf_name) -> []:
     """
@@ -35,6 +38,7 @@ def get_file_list(conf_name) -> []:
     json_files = filter(lambda k: '.json' in k, all_files)
     json_files = filter(lambda k: not 'packages' in k and not 'programs' in k, json_files)
     files_list = list(json_files)
+
     # adjust each element
     file_names = map(lambda x: conf_name + "/" + x, files_list)
 
@@ -58,16 +62,18 @@ def install_programs(config_name):
     p = ProgramInstaller(file)
     p.install_programs()
 
-    ###
-    #####
-
     end_time = time.time()
     elapsed_time = round((end_time - start_time), 2)
     print("=====================================")
     print("It took " + str(elapsed_time) + " seconds to install packages!")
 
 
-def install_packages(config_name):
+def install_packages(packages: [{}]) -> None:
+    installer = PackageInstaller(packages)
+    print("Total installed packages: {}".format(installer.get_num_installed_packages()))
+
+
+def load_packages(config_name):
     """
     Searches for packages.json file in the
     directory and it tries to install each
@@ -86,8 +92,7 @@ def install_packages(config_name):
             # for each json object, load json
             packages = json.load(json_data)
             # parse json
-            installer = PackageInstaller(packages)
-            print("Total installed packages: {}".format(installer.get_num_installed_packages()))
+            install_packages(packages)
 
     except IOError as e:
         print(e.strerror)
@@ -140,14 +145,20 @@ if __name__ == "__main__":
 
     cmd = CmdArgumentsParser(sys.argv)
 
-    # install packages first
-    install_packages(cmd.config_name)
+    # if user specifies to install packages only
+    # from text file
+    if cmd.is_raw_packages():
+        packages = PackageConverter(cmd.file_name)
+        install_packages(packages)
+    else:
+        # install packages first
+        load_packages(cmd.config_name)
 
-    # then install programs
-    install_programs(cmd.config_name)
+        # then install programs
+        install_programs(cmd.config_name)
 
-    # then do the adjustments
-    configure_files(cmd.config_name)
+        # then do the adjustments
+        configure_files(cmd.config_name)
 
     end_time_global = time.time()
     elapsed_time = round((end_time_global - start_time_global), 2)

@@ -22,7 +22,8 @@ int main(int argc, char** argv)
     else
     {
         printf("Program accepts no more than 3 arguments. \n");
-        printf("Example ./runscript <config_name> -verbose. \n");
+        printf("Example ./runscript <config_name> \n");
+        printf("Example ./runscript --packages <file_with_packages_names.txt> \n");
     }
 
     return 0;

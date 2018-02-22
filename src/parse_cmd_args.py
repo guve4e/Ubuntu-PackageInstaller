@@ -4,9 +4,7 @@ class CmdArgumentsParser(object):
     This class parses the command line arguments
     supplied form user.
     It has 3 attributes:
-        1.  project_name: String, the name of the project.
-        2.  filter_keyword: String, if the user wants to filter test cases by word.
-        3.  verbose: Boolean, if the user wants verbose info or not.
+        1.  config_name: String, the name of the configuration (will correspond to json file).
     """
 
     def __init__(self, args) -> None:
@@ -14,28 +12,21 @@ class CmdArgumentsParser(object):
 
         # attributes
         self.__config_name = None
-        self.__verbose = False
+        self.__file_name = None
+        self.__raw_packages = False
 
         # methods
         self.__validate_args(args)
         self.__retrieve_config_name(args)
-        self.__retrieve_verbose(args)
+        self.__retrieve_file_name(args)
 
     @property
     def config_name(self):
         return self.__config_name
 
-    @config_name.setter
-    def config_name(self, value):
-        self.__config_name = value
-
     @property
-    def verbose(self):
-        return self.__verbose
-
-    @verbose.setter
-    def verbose(self, value):
-        self.__verbose = value
+    def file_name(self):
+        return self.__file_name
 
     @classmethod
     def __validate_args(cls, args):
@@ -57,10 +48,15 @@ class CmdArgumentsParser(object):
         from the parameter args array
         :param args: args array
         """
+        param1 = args[1]
 
-        self.__config_name = args[1]
+        if param1 == "--packages":
+            self.__config_name = None
+            self.__raw_packages = True
+        else:
+            self.__config_name = args[1]
 
-    def __retrieve_verbose(self, args):
+    def __retrieve_file_name(self, args):
         """
         It extracts the third element
         from the parameter args array
@@ -68,4 +64,7 @@ class CmdArgumentsParser(object):
         :return:
         """
         if len(args) == 3:
-            self.__verbose = args[2]
+            self.__file_name = args[2]
+
+    def is_raw_packages(self):
+        return self.__raw_packages

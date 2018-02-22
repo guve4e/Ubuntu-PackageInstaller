@@ -2,7 +2,9 @@ import subprocess
 
 
 class PackageInstaller(object):
-
+    """
+    Installs packages
+    """
     def __init__(self, packages) -> None:
 
         self.__packages_installed = 0
