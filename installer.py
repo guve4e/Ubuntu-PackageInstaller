@@ -6,15 +6,14 @@ import os
 
 from os import listdir
 from os.path import isfile, join
-from src.package import Package
 from src.config_file import ConfigurationFile
+from src.package_installer import PackageInstaller
 from src.parse_cmd_args import CmdArgumentsParser
 from src.program_installer import ProgramInstaller
 
 """
 Driver file.
 """
-
 
 def get_file_list(conf_name) -> []:
     """
@@ -85,9 +84,10 @@ def install_packages(config_name):
     try:
         with open(file) as json_data:
             # for each json object, load json
-            programs = json.load(json_data)
+            packages = json.load(json_data)
             # parse json
-            Package.parse(programs)
+            installer = PackageInstaller(packages)
+            print("Total installed packages: {}".format(installer.get_num_installed_packages()))
 
     except IOError as e:
         print(e.strerror)

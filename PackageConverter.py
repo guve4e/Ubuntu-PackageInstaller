@@ -48,9 +48,6 @@ class PackageConverter(object):
 
         return list_packages
 
-    def dump_json(self, list_packages: []):
-        self.json_packages = json.dumps(list_packages)
-
     def serialize_line(self, line: str):
         s = str.strip("\t")
         s = s.strip("\n")

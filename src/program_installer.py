@@ -4,8 +4,9 @@ import os
 import time
 import string
 from pathlib import Path
+
+from src.package_installer import PackageInstaller
 from src.parse_json import ParseJson
-from src.package import Package
 
 TMP_DIR = 'tmp/programinstaller'
 
@@ -249,8 +250,7 @@ class ProgramInstaller:
         if not prerequisites:
             return
 
-        for prerequisite in prerequisites:
-            Package.run_package_installer(prerequisite)
+        PackageInstaller(prerequisites)
 
     def install_single_program(self):
         """

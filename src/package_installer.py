@@ -1,20 +1,24 @@
-#!/usr/bin/python3
 import subprocess
 
 
-class Package(object):
-    """
-    Package class to describe packages and their behavior
-    """
+class PackageInstaller(object):
 
-    @staticmethod
-    def found_char(string, char):
+    def __init__(self, packages) -> None:
+
+        self.__packages_installed = 0
+        self.__packages = packages
+
+        for package in self.__packages:
+            self.__run_package_installer(package)
+
+    @classmethod
+    def found_char(cls, string: str, char: str) -> bool:
         """
         It is looking for a particular char
         in a string
         :param string: the string
         :param char: the char it is looking for
-        :return:
+        :return: boolean
         """
         str_version = str(string)
         # try to find substring
@@ -27,8 +31,8 @@ class Package(object):
             # found
             return True
 
-    @staticmethod
-    def split_string(string, char):
+    @classmethod
+    def split_string(cls, string: str, char: str) -> str:
         """
         Splits string and returns
         the first part
@@ -39,8 +43,8 @@ class Package(object):
         string = string.split(char, 1)[0]
         return string
 
-    @staticmethod
-    def sanitize_str(string):
+    @classmethod
+    def sanitize_str(cls, string: str) -> str:
         """
         Removes 'b' and ' from a string
         :param string: the string to be sanitized
@@ -55,8 +59,8 @@ class Package(object):
         string = string.replace("'", "")
         return string
 
-    @staticmethod
-    def remove_chars(string):
+    @classmethod
+    def remove_chars(cls, string: str) -> str:
         """
         Removes unnecessary characters from
         the string.
@@ -65,21 +69,21 @@ class Package(object):
         """
 
         # sanitize the string
-        string = Package.sanitize_str(string)
+        string = cls.sanitize_str(string)
 
         # remove unnecessary things
-        if Package.found_char(string, "-"):
+        if cls.found_char(string, "-"):
             string = string.split("-", 1)[0]
-        elif Package.found_char(string, "ubuntu"):
+        elif cls.found_char(string, "ubuntu"):
             string = string.split("ubuntu", 1)[0]
 
-        if Package.found_char(string, "+"):
+        if cls.found_char(string, "+"):
             string = string.split("+", 1)[0]
 
         return string
 
-    @staticmethod
-    def apt_cache(package):
+    @classmethod
+    def __apt_cache(cls, package: {}) -> str:
         """
         Script uses apt-cache policy (ubuntu program)
         to gather information for a package (installed
@@ -93,23 +97,19 @@ class Package(object):
 
         cache_policy = "apt-cache policy "
 
-        # stores the output from apt-cache policy
-        output = None
-
         # use subprocess to execute apt-cache policy
         # pipe it to a variable output
         try:
             c = cache_policy + str(package['package name'])
             proc = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
-            output = proc.stdout.read()
+            shell_output = proc.stdout.read()
 
         except subprocess.CalledProcessError as e:
-            output = e.output
+            shell_output = e.output
 
-        return output
+        return shell_output
 
-    @staticmethod
-    def install_package(command):
+    def __install_package(self, command) -> None:
         """
         Runs a terminal command.
         Ex:
@@ -122,12 +122,14 @@ class Package(object):
 
         try:
             subprocess.run(str(command['command']), shell=True, check=True)
+            # increment the number of installed packages
+            self.__packages_installed = self.__packages_installed + 1
         except subprocess.CalledProcessError as e:
             output = e.output
             print(output)
 
-    @staticmethod
-    def update():
+    @classmethod
+    def __update(cls):
         """
         Downloads the package lists from the repositories and "updates"
         them to get information on the newest versions of packages and their dependencies
@@ -140,8 +142,7 @@ class Package(object):
             output = e.output
             print(output)
 
-    @staticmethod
-    def install(package):
+    def __install(self, package) -> None:
         """
         Wrapper around install_package
         :param package: json object representing package
@@ -152,31 +153,31 @@ class Package(object):
             i += 1
             print("Command Description " + str(i) + ": " + str(command['commandDescription']))
             print("Command :" + str(command['command']))
-            Package.install_package(command)
+            self.__install_package(command)
 
-    @staticmethod
-    def is_installed(version):
+    @classmethod
+    def __is_installed(cls, version: str) -> bool:
         """
         Checks if package is installed.
-        :param version: string ersion of the package
+        :param version: string version of the package
         :return: boolean true/false
         """
 
         if not version:
             return False
 
-        found = Package.found_char(version, "none")
+        found = cls.found_char(version, "none")
         if not found:
             return True
         else:
             return False
 
-    @staticmethod
-    def extract_version(output):
+    @classmethod
+    def __extract_version(cls, output: str):
         """
         Gets the version of the package
         :param output: string containing the version
-        or 'b if there is non
+        or 'b if there is none
         :return: the version of the package
         """
 
@@ -186,45 +187,40 @@ class Package(object):
 
         if not output:
             return 0
-        l = output.split()
-        version = l[2]
+        tmp = output.split()
+        version = tmp[2]
+
         return version
 
-    @staticmethod
-    def print_info(package):
+    @classmethod
+    def __print_info(cls, package) -> None:
         # print some info
         print("###################################################")
         print("Installing : " + package['name'])
         print("Comments   : " + package['comment'])
         print("Version    : " + package['version'])
 
-    @staticmethod
-    def run_package_installer(element):
+    def __run_package_installer(self, package):
         # print info
-        Package.print_info(element)
+        PackageInstaller.__print_info(package)
         # execute apt-cache
-        output = Package.apt_cache(element)
+        output = PackageInstaller.__apt_cache(package)
         # get the version
-        version = Package.extract_version(output)
+        version = PackageInstaller.__extract_version(output)
 
         # check if installed
-        if not Package.is_installed(version):
+        if not PackageInstaller.__is_installed(version):
             # if not, installed it
-            Package.install(element)
+            self.__install(package)
         else:
             # else, just address the user
             # remove certain chars
-            version = Package.remove_chars(version)
+            version = PackageInstaller.remove_chars(version)
 
             print("This Package is already installed! Version is " + version + "\n")
 
-    @staticmethod
-    def parse(package):
-        """
-        Parses each json object
-        :param package: is json object containing
-        information about the program to be installed
-        :return: void
-        """
-        for element in package:
-            Package.run_package_installer(element)
+        # update
+        PackageInstaller.__update()
+
+    def get_num_installed_packages(self) -> int:
+        return self.__packages_installed
