@@ -7,7 +7,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-from src.PackageConverter import PackageConverter
+from src.package_converter import PackageConverter
 from src.config_file import ConfigurationFile
 from src.package_installer import PackageInstaller
 from src.parse_cmd_args import CmdArgumentsParser

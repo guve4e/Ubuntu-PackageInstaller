@@ -1,7 +1,3 @@
-import json
-
-from src.package import Package
-
 
 class PackageConverter(object):
 
@@ -12,7 +8,6 @@ class PackageConverter(object):
 
         """
         self.list_packages = []
-        self.json_packages = None
 
         with open(file_name) as fin:
             for line in fin:
@@ -21,8 +16,6 @@ class PackageConverter(object):
                 self.list_packages.append(line)
 
         dict_packages = self.create_package_dictionary()
-
-        self.dump_json(dict_packages)
 
     def create_package_dictionary(self) -> [{}]:
         """
