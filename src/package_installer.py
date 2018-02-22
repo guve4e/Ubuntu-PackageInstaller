@@ -218,15 +218,14 @@ class PackageInstaller(object):
         if not PackageInstaller.__is_installed(version):
             # if not, installed it
             self.__install(package)
+            # update
+            PackageInstaller.__update()
         else:
             # else, just address the user
             # remove certain chars
             version = PackageInstaller.remove_chars(version)
 
             print("This Package is already installed! Version is " + version + "\n")
-
-        # update
-        PackageInstaller.__update()
 
     def get_num_installed_packages(self) -> int:
         return self.__packages_installed
