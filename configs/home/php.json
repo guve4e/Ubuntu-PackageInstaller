@@ -1,5 +1,5 @@
 {
-  "file_path" : "/etc/php/7.1/apache2/php.ini",
+  "file_path" : "/etc/php/7.0/apache2/php.ini",
   "comment_symbol" : ";",
   "permission" : "444",
   "change" : [
