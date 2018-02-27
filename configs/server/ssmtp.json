@@ -13,11 +13,11 @@
       "comment" : ""
     },
     {
-      "line" : "AuthUser=crystalpure@gmail.com",
+      "line" : "AuthUser=johndoe@gmail.com",
       "comment" : ""
     },
     {
-      "line" : "AuthPass=ro6ko123",
+      "line" : "AuthPass=authpass",
       "comment" : ""
     }
   ],
