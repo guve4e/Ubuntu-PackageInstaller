@@ -103,7 +103,7 @@
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install phpmyadmin php-mbstring php-gettext -y"
+      "command" : "sudo apt-get install phpmyadmin php-gettext -y"
     }
   ]
   },
@@ -358,7 +358,7 @@
   {
   "name" : "Python PIP3",
   "comment" : "pip is a package management system used to install and manage software packages written in Python",
-  "package name" : "pythin3-pip",
+  "package name" : "python3-pip",
   "version" : "Latest",
   "commands" : [
     {
