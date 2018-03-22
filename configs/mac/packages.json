@@ -66,8 +66,8 @@
   {
   "name" : "PHP",
   "comment" : "PHP Installer",
-  "package name" : "php7.0",
-  "version" : "7.0",
+  "package name" : "php7.2",
+  "version" : "7.2",
   "commands" : [
     {
       "commandDescription" : "install python",
@@ -79,19 +79,19 @@
     },
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install -y php7.0 -y"
+      "command" : "sudo apt-get install -y php7.2 -y"
     }
   ]
   },
   {
   "name" : "PHP7 - MySQL",
   "comment" : "PHP7 - MySQL Installer",
-  "package name" : "php7.0-mysql",
+  "package name" : "php7.2-mysql",
   "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-mysql -y"
+      "command" : "sudo apt-get install php7.2-mysql -y"
     }
   ]
   },
@@ -110,36 +110,36 @@
   {
   "name" : "PHP7 - CURL",
   "comment" : "PHP7 - CURL Installer",
-  "package name" : "php7.0-curl",
+  "package name" : "php7.2-curl",
   "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-curl -y"
+      "command" : "sudo apt-get install php7.2-curl -y"
     }
   ]
   },
   {
   "name" : "PHP7 - JSON",
   "comment" : "PHP7 - JSON Installer",
-  "package name" : "php7.0-json",
+  "package name" : "php7.2-json",
   "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-json -y"
+      "command" : "sudo apt-get install php7.2-json -y"
     }
   ]
   },
   {
   "name" : "PHP7 - CGI",
   "comment" : "PHP7 - CGI Installer",
-  "package name" : "php7.0-cgi",
+  "package name" : "php7.2-cgi",
   "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-cgi -y"
+      "command" : "sudo apt-get install php7.2-cgi -y"
     }
   ]
   },
@@ -158,12 +158,12 @@
   {
   "name" : "PHP7 - MBString",
   "comment" : "PHP7 - MBString Installer",
-  "package name" : "php7.0-mbstring",
+  "package name" : "php7.2-mbstring",
   "version" : "Latest",
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-mbstring -y"
+      "command" : "sudo apt-get install php7.2-mbstring -y"
     }
   ]
   },
@@ -195,7 +195,7 @@
   "commands" : [
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-xml -y"
+      "command" : "sudo apt-get install php7.2-xml -y"
     }
   ]
   },
