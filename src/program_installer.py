@@ -6,7 +6,7 @@ import string
 from pathlib import Path
 
 from src.package_installer import PackageInstaller
-from src.parse_json import ParseJson
+from src.parse_json import JsonParser
 
 TMP_DIR = 'tmp/programinstaller'
 
@@ -21,7 +21,7 @@ class ProgramInstaller:
         :param file_name: s.Path object representing the path to the main json file
         """
         # send to ParseJson
-        self.__json_list = ParseJson(file_name)
+        self.__json_list = JsonParser(file_name)
         self.__name = self.__directory = self.__prerequisites = self.__url = self.__alternative_dir = None
 
     @classmethod

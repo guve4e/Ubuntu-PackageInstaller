@@ -1,6 +1,8 @@
 from unittest import TestCase
+from unittest.mock import MagicMock
 
 from src.package_installer import PackageInstaller
+from src.bash_connector import BashConnector
 
 
 class TestPackageInstaller(TestCase):
@@ -45,45 +47,63 @@ class TestPackageInstaller(TestCase):
             }
         ]
 
-        self.package = PackageInstaller(self.package_list)
+        self.a = b'apache7:\n' \
+                 b'Installed: 2.4.27-2ubuntu4.2\n' \
+                 b'Candidate: 2.4.27-2ubuntu4.2\n' \
+                 b'Version table:\n' \
+                 b'*** 2.4.27-2ubuntu4.2 500\n' \
+                 b'500 http://us.archive.ubuntu.com/ubuntu artful-updates/main amd64 Packages\n' \
+                 b'100 /var/lib/dpkg/status\n' \
+                 b'2.4.27-2ubuntu4.1 500\n' \
+                 b'500 http://security.ubuntu.com/ubuntu artful-security/main amd64 Packages\n' \
+                 b'2.4.27-2ubuntu3 500\n' \
+                 b'500 http://us.archive.ubuntu.com/ubuntu artful/main amd64 Packages\n'
 
-    def runTest(self):
-        self.test_proper_initialization
+        #self.package = PackageInstaller(self.package_list)
+    #
+    # def runTest(self):
+    #     self.test_proper_initialization
+    #
+    # def test_found_char(self):
+    #     # Arrange
+    #     version = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+    #     # Act
+    #     result = self.package.found_char(version, "t")
+    #     # Assert
+    #     self.assertTrue(True, result)
+    #
+    # def test_split_string(self):
+    #     # Arrange
+    #     test_string = "1111111!000000"
+    #     # Act
+    #     actual = self.package.split_string(test_string, "!")
+    #     # Assert
+    #     self.assertEqual("1111111", actual)
+    #
+    # def test_sanitize_string(self):
+    #     # Arrange
+    #     test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+    #     expected_string = "64.0.3282.167-0ubuntu0.17.10.1"
+    #     # Act
+    #     actual_string = self.package.sanitize_str(test_string)
+    #     # Assert
+    #     self.assertEqual(expected_string, actual_string)
+    #
+    # def test_remove_chars(self):
+    #     # Arrange
+    #     test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+    #     expected_string = "64.0.3282.167"
+    #     # Act
+    #     actual_string = self.package.remove_chars(test_string)
+    #     # Assert
+    #     self.assertEqual(expected_string, actual_string)
 
-    def test_found_char(self):
-        # Arrange
-        version = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-        # Act
-        result = self.package.found_char(version, "t")
-        # Assert
-        self.assertTrue(True, result)
+    def test_f(self):
 
-    def test_split_string(self):
-        # Arrange
-        test_string = "1111111!000000"
-        # Act
-        actual = self.package.split_string(test_string, "!")
-        # Assert
-        self.assertEqual("1111111", actual)
+        b = BashConnector()
+        b.apt_cache = MagicMock(return_value=self.a)
 
-    def test_sanitize_string(self):
-        # Arrange
-        test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-        expected_string = "64.0.3282.167-0ubuntu0.17.10.1"
-        # Act
-        actual_string = self.package.sanitize_str(test_string)
-        # Assert
-        self.assertEqual(expected_string, actual_string)
-
-    def test_remove_chars(self):
-        # Arrange
-        test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-        expected_string = "64.0.3282.167"
-        # Act
-        actual_string = self.package.remove_chars(test_string)
-        # Assert
-        self.assertEqual(expected_string, actual_string)
-
+        self.package = PackageInstaller(b,self.package_list)
 
     # def test_initialization_with_text_file(self):
     #     # Arrange

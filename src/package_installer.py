@@ -1,14 +1,14 @@
-import subprocess
-
+from src.bash_connector import BashConnector
 
 class PackageInstaller(object):
     """
     Installs packages
     """
-    def __init__(self, packages) -> None:
+    def __init__(self, connector, packages) -> None:
 
         self.__packages_installed = 0
         self.__packages = packages
+        self.__bash_connector = connector
 
         for package in self.__packages:
             self.__run_package_installer(package)
@@ -84,66 +84,6 @@ class PackageInstaller(object):
 
         return string
 
-    @classmethod
-    def __apt_cache(cls, package: {}) -> str:
-        """
-        Script uses apt-cache policy (ubuntu program)
-        to gather information for a package (installed
-        or not and version).
-        Assumes that it is installed since
-        any version after 14 has it by default.
-        :param package: json object representing package
-        :return: The output of executed apt-cache policy
-        program.
-        """
-
-        cache_policy = "apt-cache policy "
-
-        # use subprocess to execute apt-cache policy
-        # pipe it to a variable output
-        try:
-            c = cache_policy + str(package['package name'])
-            proc = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
-            shell_output = proc.stdout.read()
-
-        except subprocess.CalledProcessError as e:
-            shell_output = e.output
-
-        return shell_output
-
-    def __install_package(self, command) -> None:
-        """
-        Runs a terminal command.
-        Ex:
-        sudo apt-get install chromium-browser -y
-        :param command: string containing ubuntu commands to
-        install package.
-        Ex: sudo apt-get install chromium-browser -y
-        :return: void
-        """
-
-        try:
-            subprocess.run(str(command['command']), shell=True, check=True)
-            # increment the number of installed packages
-            self.__packages_installed = self.__packages_installed + 1
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
-
-    @classmethod
-    def __update(cls):
-        """
-        Downloads the package lists from the repositories and "updates"
-        them to get information on the newest versions of packages and their dependencies
-        :return: void
-        """
-
-        try:
-            subprocess.run("sudo apt-get update ", shell=True, check=True)
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
-
     def __install(self, package) -> None:
         """
         Wrapper around install_package
@@ -155,7 +95,7 @@ class PackageInstaller(object):
             i += 1
             print("Command Description " + str(i) + ": " + str(command['commandDescription']))
             print("Command :" + str(command['command']))
-            self.__install_package(command)
+            self.__bash_connector.install_package(command)
 
     @classmethod
     def __is_installed(cls, version: str) -> bool:
@@ -210,16 +150,16 @@ class PackageInstaller(object):
         # print info
         PackageInstaller.__print_info(package)
         # execute apt-cache
-        output = PackageInstaller.__apt_cache(package)
+        output = self.__bash_connector.apt_cache(package)
         # get the version
-        version = PackageInstaller.__extract_version(output)
+        version = self.__extract_version(output)
 
         # check if installed
-        if not PackageInstaller.__is_installed(version):
+        if not self.__is_installed(version):
             # if not, installed it
             self.__install(package)
             # update
-            PackageInstaller.__update()
+            self.__bash_connector.update()
         else:
             # else, just address the user
             # remove certain chars

@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 import subprocess
 import fileinput
-from src.parse_json import ParseJson
+from src.parse_json import JsonParser
 
 
-class ConfigurationFile(ParseJson):
+class ConfigurationFile(JsonParser):
     """
     This class parses json file -> test.json
     It inherits from PareJson since it parses a json file,
@@ -29,7 +29,7 @@ class ConfigurationFile(ParseJson):
         """
 
         # send to ParseJson
-        ParseJson.__init__(self, file_name)
+        JsonParser.__init__(self, file_name)
 
         try:
             self.__file_path = self.json_data['file_path']

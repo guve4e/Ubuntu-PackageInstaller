@@ -519,7 +519,7 @@
     "commands" : [
       {
         "commandDescription" : "install with snap",
-        "command" : "sudo snap install pycharm-professional --classic -y"
+        "command" : "sudo snap install pycharm-professional --classic"
       }
     ]
     },
@@ -531,7 +531,7 @@
     "commands" : [
       {
         "commandDescription" : "install with snap",
-        "command" : "sudo snap install phpstorm --classic -y"
+        "command" : "sudo snap install phpstorm --classic"
       }
     ]
     }

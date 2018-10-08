@@ -12,6 +12,7 @@ from src.config_file import ConfigurationFile
 from src.package_installer import PackageInstaller
 from src.parse_cmd_args import CmdArgumentsParser
 from src.program_installer import ProgramInstaller
+from src.bash_connector import BashConnector
 
 """
 Driver file.
@@ -69,7 +70,7 @@ def install_programs(config_name):
 
 
 def install_packages(packages: [{}]) -> None:
-    installer = PackageInstaller(packages)
+    installer = PackageInstaller(BashConnector(), packages)
     print("Total installed packages: {}".format(installer.get_num_installed_packages()))
 
 
