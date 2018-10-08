@@ -97,6 +97,10 @@ class PackageInstaller(object):
             print("Command :" + str(command['command']))
             self.__bash_connector.install_package(command)
 
+            # increment the number of installed packages
+            self.__packages_installed = self.__packages_installed + 1
+
+
     @classmethod
     def __is_installed(cls, version: str) -> bool:
         """

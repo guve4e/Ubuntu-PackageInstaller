@@ -3,7 +3,8 @@ import subprocess
 
 class BashConnector(object):
 
-    def apt_cache(self, package: {}) -> str:
+    @classmethod
+    def apt_cache(cls, package: {}) -> str:
         """
         Script uses apt-cache policy (ubuntu program)
         to gather information for a package (installed
@@ -29,7 +30,8 @@ class BashConnector(object):
 
         return shell_output
 
-    def install_package(self, command) -> None:
+    @classmethod
+    def install_package(cls, command) -> None:
         """
         Runs a terminal command.
         Ex:
@@ -42,13 +44,12 @@ class BashConnector(object):
 
         try:
             subprocess.run(str(command['command']), shell=True, check=True)
-            # increment the number of installed packages
-            self.__packages_installed = self.__packages_installed + 1
         except subprocess.CalledProcessError as e:
             output = e.output
             print(output)
 
-    def update(self):
+    @classmethod
+    def update(cls):
         """
         Downloads the package lists from the repositories and "updates"
         them to get information on the newest versions of packages and their dependencies
