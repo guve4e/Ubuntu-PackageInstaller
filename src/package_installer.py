@@ -108,11 +108,8 @@ class PackageInstaller(object):
         if not version:
             return False
 
-        found = cls.found_char(version, "none")
-        if not found:
-            return True
-        else:
-            return False
+        return cls.found_char(version, "none")
+
 
     @classmethod
     def __extract_version(cls, output: str):

@@ -47,7 +47,7 @@ class TestPackageInstaller(TestCase):
             }
         ]
 
-        self.a = b'apache7:\n' \
+        self.mockAptCache = b'apache7:\n' \
                  b'Installed: 2.4.27-2ubuntu4.2\n' \
                  b'Candidate: 2.4.27-2ubuntu4.2\n' \
                  b'Version table:\n' \
@@ -59,51 +59,50 @@ class TestPackageInstaller(TestCase):
                  b'2.4.27-2ubuntu3 500\n' \
                  b'500 http://us.archive.ubuntu.com/ubuntu artful/main amd64 Packages\n'
 
-        #self.package = PackageInstaller(self.package_list)
-    #
-    # def runTest(self):
-    #     self.test_proper_initialization
-    #
-    # def test_found_char(self):
-    #     # Arrange
-    #     version = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-    #     # Act
-    #     result = self.package.found_char(version, "t")
-    #     # Assert
-    #     self.assertTrue(True, result)
-    #
-    # def test_split_string(self):
-    #     # Arrange
-    #     test_string = "1111111!000000"
-    #     # Act
-    #     actual = self.package.split_string(test_string, "!")
-    #     # Assert
-    #     self.assertEqual("1111111", actual)
-    #
-    # def test_sanitize_string(self):
-    #     # Arrange
-    #     test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-    #     expected_string = "64.0.3282.167-0ubuntu0.17.10.1"
-    #     # Act
-    #     actual_string = self.package.sanitize_str(test_string)
-    #     # Assert
-    #     self.assertEqual(expected_string, actual_string)
-    #
-    # def test_remove_chars(self):
-    #     # Arrange
-    #     test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-    #     expected_string = "64.0.3282.167"
-    #     # Act
-    #     actual_string = self.package.remove_chars(test_string)
-    #     # Assert
-    #     self.assertEqual(expected_string, actual_string)
+        self.mockBashConnector = BashConnector()
+        self.mockBashConnector.apt_cache = MagicMock(return_value=self.mockAptCache)
+        self.mockBashConnector.install_package = MagicMock()
+        self.mockBashConnector.update = MagicMock()
 
-    def test_f(self):
+        self.package = PackageInstaller(self.mockBashConnector, self.package_list)
 
-        b = BashConnector()
-        b.apt_cache = MagicMock(return_value=self.a)
+    def runTest(self):
+        pass
 
-        self.package = PackageInstaller(b,self.package_list)
+    def test_found_char(self):
+        # Arrange
+        version = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+        # Act
+        result = self.package.found_char(version, "t")
+        # Assert
+        self.assertTrue(True, result)
+
+    def test_split_string(self):
+        # Arrange
+        test_string = "1111111!000000"
+        # Act
+        actual = self.package.split_string(test_string, "!")
+        # Assert
+        self.assertEqual("1111111", actual)
+
+    def test_sanitize_string(self):
+        # Arrange
+        test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+        expected_string = "64.0.3282.167-0ubuntu0.17.10.1"
+        # Act
+        actual_string = self.package.sanitize_str(test_string)
+        # Assert
+        self.assertEqual(expected_string, actual_string)
+
+    def test_remove_chars(self):
+        # Arrange
+        test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+        expected_string = "64.0.3282.167"
+        # Act
+        actual_string = self.package.remove_chars(test_string)
+        # Assert
+        self.assertEqual(expected_string, actual_string)
+
 
     # def test_initialization_with_text_file(self):
     #     # Arrange
@@ -135,11 +134,11 @@ class TestPackageInstaller(TestCase):
     #     ]
     #
     #     # Act
-    #     package = PackageInstaller("testPackageInstaller.txt")
+    #     package = PackageInstaller(self.mockBashConnector, "testPackageInstaller.txt")
     #
     #     # Assert
     #     self.assertEqual(expected_list, package.packages)
-    #
+
     # def test_initialization_with_json_file(self):
     #     # Arrange
     #
