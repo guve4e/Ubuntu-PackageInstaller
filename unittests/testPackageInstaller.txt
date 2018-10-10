@@ -1,14 +1,2 @@
-acpi-support
-acpid
-adduser
-adium-theme-ubuntu
-aisleriot
-alacarte
-alsa-base
-alsa-utils
-anacron
-ant
-ant-gcj
-ant-optional
-ant-optional-gcj
-apache2
+some-package
+some-other-package

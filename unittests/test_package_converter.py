@@ -1,92 +1,48 @@
 from unittest import TestCase
 from unittest.mock import MagicMock
-
-from src.package_installer import PackageInstaller
-from src.bash_connector import BashConnector
+from src.package_converter import PackageConverter
 
 
 class TestPackageConverter(TestCase):
 
     def setUp(self):
-        pass
+        self.file_content = "some-package\nsome-other-package\n"
+
+        self.json_content = [
+            {
+                "name": "Some-Package",
+                "comment": "No comment",
+                "package name": "some-package",
+                "version": "Latest",
+                "commands": [
+                        {
+                            "commandDescription": "install",
+                            "command": "sudo apt install some-package -y"
+                        }
+                    ]
+            },
+            {
+                "name": "Some-Other-Package",
+                "comment": "No comment",
+                "package name": "some-other-package",
+                "version": "Latest",
+                "commands": [
+                        {
+                            "commandDescription": "install",
+                            "command": "sudo apt install some-other-package -y"
+                        }
+                    ]
+            }
+        ]
 
     def runTest(self):
         pass
 
-    def test_initialization_with_text_file(self):
-        # Arrange
-        expected_list = [
-            {
-                "name": "Chromium-Browser",
-                "comment": "No comment",
-                "package name": "chromium-browser",
-                "version": "Latest",
-                "commands": [
-                    {
-                        "commandDescription": "install",
-                        "command": "sudo apt-get install chromium-browser -y"
-                    }
-                ]
-            },
-            {
-                "name": "Kdeconnect",
-                "comment": "No Comment",
-                "package name": "kdeconnect",
-                "version": "Latest",
-                "commands": [
-                    {
-                        "commandDescription": "install",
-                        "command": "sudo apt install kdeconnect -y"
-                    }
-                ]
-            }
-        ]
 
+    def testPackageConverter(self):
         # Act
-        package = TestPackageConverter("testPackageInstaller.txt")
+        packageConverter = PackageConverter("testPackageInstaller.txt")
+        actual_json = packageConverter.get_packages()
 
         # Assert
-        self.assertEqual(expected_list, package.packages)
-
-    def test_initialization_with_json_file(self):
-        # Arrange
-        # Arrange
-        expected_list = [
-            {
-                "name": "Chromium-Browser",
-                "comment": "No comment",
-                "package name": "chromium-browser",
-                "version": "Latest",
-                "commands": [
-                    {
-                        "commandDescription": "install",
-                        "command": "sudo apt-get install chromium-browser -y"
-                    }
-                ]
-            },
-            {
-                "name": "Kdeconnect",
-                "comment": "No Comment",
-                "package name": "kdeconnect",
-                "version": "Latest",
-                "commands": [
-                    {
-                        "commandDescription": "install",
-                        "command": "sudo apt install kdeconnect -y"
-                    }
-                ]
-            }
-        ]
-
-        package = PackageInstaller("testPackageInstaller.json")
-
-        self.assertEqual(expected_list, package.packages)
-    #
-    # def foo(self):
-    #     # Arrange
-    #
-    #     # Act
-    #
-    #     # Assert
-    #
-    #     self.assertEqual()
+        self.assertEqual(actual_json, self.json_content)
