@@ -67,7 +67,10 @@ class TestPackageInstaller(TestCase):
         self.package = PackageInstaller(self.mockBashConnector, self.package_list)
 
     def runTest(self):
-        pass
+        self.test_found_char()
+        self.test_split_string()
+        self.test_sanitize_string()
+        self.test_remove_chars()
 
     def test_found_char(self):
         # Arrange

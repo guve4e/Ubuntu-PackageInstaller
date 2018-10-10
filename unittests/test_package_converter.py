@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, mock
 from unittest.mock import MagicMock
 from src.package_converter import PackageConverter
 
@@ -36,10 +36,15 @@ class TestPackageConverter(TestCase):
         ]
 
     def runTest(self):
-        pass
+        self.testPackageConverter()
 
+    @mock.patch("builtins.open", create=True)
+    def testPackageConverter(self, mock_open):
+        # Arrange
+        mock_open.side_effect = [
+            mock.mock_open(read_data=self.file_content).return_value
+        ]
 
-    def testPackageConverter(self):
         # Act
         packageConverter = PackageConverter("testPackageInstaller.txt")
         actual_json = packageConverter.get_packages()

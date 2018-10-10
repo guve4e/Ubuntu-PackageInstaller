@@ -8,14 +8,29 @@ class PackageConverter(object):
 
         """
         self.__list_packages = []
-        self.__load_list_packages(file_name)
+        packages_str = self.__read_list_packages(file_name)
+        self.__load_list_packages(packages_str)
         self.__list_dict_packages = self.__create_package_dictionary()
 
-    def __load_list_packages(self, file_name) -> None:
-        with open(file_name) as fin:
-            for line in fin:
-                line = self.serialize_line(line)
-                self.__list_packages.append(line)
+    def __read_list_packages(self, file_name: str) -> str:
+        """
+        Reads data from text file.
+        :param file_name: the name of the file
+        :return: data from text file as string
+        """
+        with open(file_name) as file:
+            return file.read().strip()
+
+
+    def __load_list_packages(self, file_data: str) -> None:
+        """
+        Splits the file data with new line delimiter.
+        Updates __list_dict_packages member.
+        :param file_name: file data
+        :return: None
+        """
+        self.__list_packages = file_data.splitlines()
+
 
     def __create_package_dictionary(self)-> []:
         """
