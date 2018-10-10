@@ -4,7 +4,7 @@ import fileinput
 from src.parse_json import JsonParser
 
 
-class ConfigurationFile(JsonParser):
+class FileConfigurator(JsonParser):
     """
     This class parses json file -> test.json
     It inherits from PareJson since it parses a json file,

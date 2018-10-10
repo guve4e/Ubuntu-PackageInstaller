@@ -8,7 +8,7 @@ from os import listdir
 from os.path import isfile, join
 
 from src.package_converter import PackageConverter
-from src.config_file import ConfigurationFile
+from src.file_configurator import FileConfigurator
 from src.package_installer import PackageInstaller
 from src.parse_cmd_args import CmdArgumentsParser
 from src.program_installer import ProgramInstaller
@@ -135,7 +135,7 @@ def config(file_path):
     configurations.
     :return: void
     """
-    cf = ConfigurationFile(file_path)
+    cf = FileConfigurator(file_path)
     cf.configure()
 
 

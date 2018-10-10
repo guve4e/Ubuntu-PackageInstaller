@@ -2,15 +2,12 @@
 import unittest
 import os
 import subprocess
-from src.config_file import ConfigurationFile
+from src.file_configurator import FileConfigurator
 
 
 class ConfigurationFileTestCase(unittest.TestCase):
     def setUp(self):
-        # Arrange
-        self.restore()
-        # Dependency for Make Requests
-        self.file = ConfigurationFile("testjson.json")
+        self.file = FileConfigurator("testjson.json")
 
     def runTest(self):
         self.test_configure_change()
@@ -31,7 +28,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
             output = e.output
             print(output)
 
-    def restore(self):
+    def tearDown(self):
         """
         Doesnt TEST, but restores the testing file
         and it checks for competition
@@ -79,7 +76,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
         self.assertEqual(True, self.check_permission(os.O_RDONLY))
 
         # Clean Up
-        self.restore()
+        self.tearDown()
 
     def test_configure_append(self):
 
@@ -97,7 +94,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
         self.assertEqual(True, self.check_permission(os.O_RDONLY))
 
         # Clean Up
-        self.restore()
+        self.tearDown()
 
     def test_configure_add(self):
 
@@ -115,11 +112,11 @@ class ConfigurationFileTestCase(unittest.TestCase):
         self.assertEqual(True, self.check_permission(os.O_RDONLY))
 
         # Clean Up
-        self.restore()
+        self.tearDown()
 
     def test_no_add(self):
         # Arrange
-        file = ConfigurationFile("testjson2.json")
+        file = FileConfigurator("testjson2.json")
 
         # Act
         file.configure_append()
