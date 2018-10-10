@@ -77,8 +77,7 @@ def install_packages(packages: [{}]) -> None:
 def load_packages(config_name):
     """
     Searches for packages.json file in the
-    directory and it tries to install each
-    package
+    directory and it tries to install eac    package
     :param config_name:
     :return: void
     """
@@ -149,9 +148,13 @@ if __name__ == "__main__":
     # if user specifies to install packages only
     # from text file
     if cmd.is_raw_packages():
-        packages = PackageConverter(cmd.file_name)
-        p = packages.get_packages()
-        install_packages(p)
+        pConverter = PackageConverter(cmd.file_name)
+
+        # get the packages converted to json
+        packages = pConverter.get_packages()
+
+        # try to install the packages
+        install_packages(packages)
     else:
         # install packages first
         load_packages(cmd.config_name)

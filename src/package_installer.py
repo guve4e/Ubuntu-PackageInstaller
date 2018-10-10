@@ -1,5 +1,6 @@
 from src.bash_connector import BashConnector
 
+
 class PackageInstaller(object):
     """
     Installs packages

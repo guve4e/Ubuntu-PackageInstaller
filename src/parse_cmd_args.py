@@ -7,7 +7,7 @@ class CmdArgumentsParser(object):
         1.  config_name: String, the name of the configuration (will correspond to json file).
     """
 
-    def __init__(self, args) -> None:
+    def __init__(self, args)-> None:
         super().__init__()
 
         # attributes

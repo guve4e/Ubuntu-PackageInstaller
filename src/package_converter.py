@@ -17,7 +17,7 @@ class PackageConverter(object):
                 line = self.serialize_line(line)
                 self.__list_packages.append(line)
 
-    def __create_package_dictionary(self) -> [{}]:
+    def __create_package_dictionary(self)-> [{}]:
         """
         Loops trough the list of packages
         and creates dictionary.
