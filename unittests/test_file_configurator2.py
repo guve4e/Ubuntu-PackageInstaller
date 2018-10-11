@@ -3,11 +3,11 @@ import unittest
 import os
 import subprocess
 from src.file_configurator import FileConfigurator
-
+from src.json_parser import JsonParser
 
 class ConfigurationFileTestCase(unittest.TestCase):
     def setUp(self):
-        self.file = FileConfigurator("testjson.json")
+        self.file = FileConfigurator(JsonParser("testjson.json"))
 
     def runTest(self):
         self.test_configure_change()
@@ -116,7 +116,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
 
     def test_no_add(self):
         # Arrange
-        file = FileConfigurator("testjson2.json")
+        file = FileConfigurator(JsonParser("testjson2.json"))
 
         # Act
         file.configure_append()
