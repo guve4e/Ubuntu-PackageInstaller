@@ -1,12 +1,11 @@
 from unittest import TestCase, mock
-from unittest.mock import MagicMock
 from src.package_converter import PackageConverter
 
 
 class TestPackageConverter(TestCase):
 
     def setUp(self):
-        self.file_content = "some-package\nsome-other-package\n"
+        self.file_content_list  = "some-package\nsome-other-package\n"
 
         self.json_content = [
             {

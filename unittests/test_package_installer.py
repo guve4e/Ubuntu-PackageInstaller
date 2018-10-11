@@ -72,36 +72,53 @@ class TestPackageInstaller(TestCase):
         self.test_sanitize_string()
         self.test_remove_chars()
 
+
     def test_found_char(self):
         # Arrange
-        version = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
+        param_list = [("'b'64.0.3282.167-0ubuntu0.17.10.1''", True), ("nowhere", False)]
+
         # Act
-        result = self.package.found_char(version, "t")
-        # Assert
-        self.assertTrue(True, result)
+        for parameter, expected in param_list:
+            with self.subTest():
+                actual_result = self.package.found_char(parameter, "t")
+                # Assert
+                self.assertEqual(actual_result, expected)
 
     def test_split_string(self):
         # Arrange
-        test_string = "1111111!000000"
+        param_list =[
+            ("1111111!000000", "1111111"),
+            ("somestring!someotherstring", "somestring")
+        ]
+
         # Act
-        actual = self.package.split_string(test_string, "!")
-        # Assert
-        self.assertEqual("1111111", actual)
+        for parameter, expected in param_list:
+            with self.subTest():
+                actual_result = self.package.split_string(parameter, "!")
+                # Assert
+                self.assertEqual(actual_result, expected)
 
     def test_sanitize_string(self):
         # Arrange
-        test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
-        expected_string = "64.0.3282.167-0ubuntu0.17.10.1"
+        param_list = [
+            ("'b'64.0.3282.167-0ubuntu0.17.10.1''", "64.0.3282.167-0ubuntu0.17.10.1"),
+            ("'b'somestring", "somestring")
+        ]
+
         # Act
-        actual_string = self.package.sanitize_str(test_string)
-        # Assert
-        self.assertEqual(expected_string, actual_string)
+        for parameter, expected in param_list:
+            with self.subTest():
+                actual = self.package.sanitize_str(parameter)
+                # Assert
+                self.assertEqual(expected, actual)
 
     def test_remove_chars(self):
         # Arrange
         test_string = "'b'64.0.3282.167-0ubuntu0.17.10.1''"
         expected_string = "64.0.3282.167"
+
         # Act
         actual_string = self.package.remove_chars(test_string)
+
         # Assert
         self.assertEqual(expected_string, actual_string)
