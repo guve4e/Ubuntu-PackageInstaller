@@ -6,7 +6,7 @@ import string
 from pathlib import Path
 
 from src.package_installer import PackageInstaller
-from src.parse_json import JsonParser
+from src.json_parser import JsonParser
 
 TMP_DIR = 'tmp/programinstaller'
 

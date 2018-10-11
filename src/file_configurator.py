@@ -1,43 +1,27 @@
 #!/usr/bin/python3
 import subprocess
 import fileinput
-from src.parse_json import JsonParser
+from src.json_parser import JsonParser
 
 
-class FileConfigurator(JsonParser):
-    """
-    This class parses json file -> test.json
-    It inherits from PareJson since it parses a json file,
-    but specific json file.
+class FileConfigurator(object):
 
-    Note: This class uses subprocess which is an
-    expensive operation, as you are creating a sub-shell
-    and invoking /bin/chmod directly.
-
-    It has 5 members:
-        1. file_path - path to the file that will be configured
-        2. comment_symbol - different config files use different comment symbols
-        3. permission - the permission the user wants the file to be left in
-        4. change - dictionary of things that need to be changed
-        5. append - dictionary of things that need to be appended
-
-        """
-    def __init__(self, file_name) -> None:
-        """
-        Constructor
-        :param file_name: s.Path object representing the path to the main json file
+    def __init__(self, json_parser: JsonParser) -> None:
         """
 
-        # send to ParseJson
-        JsonParser.__init__(self, file_name)
+        :param json_parser:
+        """
+        super().__init__()
+
+        self.__json_parser = json_parser
 
         try:
-            self.__file_path = self.json_data['file_path']
-            self.__comment_symbol = self.json_data['comment_symbol']
-            self.__permission = self.json_data['permission']
-            self.__change = self.json_data['change']
-            self.__append = self.json_data['append']
-            self.__add = self.json_data['add']
+            self.__file_path = self.__json_parser.json_data['file_path']
+            self.__comment_symbol = self.__json_parser.json_data['comment_symbol']
+            self.__permission = self.__json_parser.json_data['permission']
+            self.__change = self.__json_parser.json_data['change']
+            self.__append = self.__json_parser.json_data['append']
+            self.__add = self.__json_parser.json_data['add']
         except Exception as e:
             print("Wrong JSON file! Exception : " + str(e))
 
@@ -106,6 +90,13 @@ class FileConfigurator(JsonParser):
             output = e.output
             print(output)
 
+    @classmethod
+    def make_line(cls, line, comment, comment_symbol) -> str:
+        if not comment:
+            return line + "\n"
+        else:
+            return line + " " + comment_symbol + " " + comment + "\n"
+
     def replace_text(self, text_search, text_replace) -> None:
         """
         Replaces pieces of text with other text.
@@ -134,13 +125,6 @@ class FileConfigurator(JsonParser):
 
         for change in self.__change:
             self.replace_text(change['old'], change['new'])
-
-    @classmethod
-    def make_line(cls, line, comment, comment_symbol) -> str:
-        if not comment:
-            return line + "\n"
-        else:
-            return line + " " + comment_symbol + " " + comment + "\n"
 
     def append_text(self, line, comment):
         """
