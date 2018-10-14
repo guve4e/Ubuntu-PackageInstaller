@@ -2,6 +2,7 @@
 import fileinput
 from src.json_parser import JsonParser
 from src.bash_connector import BashConnector
+from src.file import File
 
 
 class FileConfigurator(object):
@@ -21,53 +22,8 @@ class FileConfigurator(object):
         except Exception as e:
             print("Wrong JSON file! Exception : " + str(e))
 
-    @property
-    def file_path(self):
-        return self.__file_path
+        self.__file = File(self.__file_path)
 
-    @file_path.setter
-    def file_path(self, value):
-        self.__file_path = value
-
-    @property
-    def change(self):
-        return self.__change
-
-    @change.setter
-    def change(self, value):
-        self.__change = value
-
-    @property
-    def append(self):
-        return self.__append
-
-    @append.setter
-    def append(self, value):
-        self.__append = value
-
-    @property
-    def add(self):
-        return self.__add
-
-    @add.setter
-    def add(self, value):
-        self.__add = value
-
-    @property
-    def comment_symbol(self):
-        return self.__comment_symbol
-
-    @comment_symbol.setter
-    def comment_symbol(self, value):
-        self.__comment_symbol = value
-
-    @property
-    def permission(self):
-        return self.__permission
-
-    @permission.setter
-    def permission(self, value):
-        self.__permission = value
 
     @classmethod
     def __make_line(cls, line, comment, comment_symbol) -> str:
@@ -75,6 +31,30 @@ class FileConfigurator(object):
             return line + "\n"
         else:
             return line + " " + comment_symbol + " " + comment + "\n"
+
+    def __line_exists(self, search_line) -> bool:
+        """
+        Checks if line is already in the file.
+        If so return true, if not false.
+        :param search_line: dict containing line and comment
+        the line to search for
+        :return: boolean
+        """
+        search_line = self.__make_line(search_line['line'], "", self.__comment_symbol)
+
+        with fileinput.FileInput(self.__file_path, inplace=False) as file:
+            for line in file:
+                if line == search_line:
+                    print("The Line already exists : " + search_line, end='')
+                    return True
+
+        return False
+
+    def __write_file(self):
+        file = open(self.__file_path, 'w+')
+        file.truncate(0)
+        print(self.__file.content)
+        file.close()
 
     def replace_text(self, text_search, text_replace) -> None:
         """
@@ -85,9 +65,7 @@ class FileConfigurator(object):
         """
         print("Replacing :'" + text_search + "' with '" + text_replace + "'")
 
-        with fileinput.FileInput(self.__file_path, inplace=True, backup='.bak') as file:
-            for line in file:
-                print(line.replace(text_search, text_replace), end='')
+        self.__file.change(text_search, text_replace)
 
     def configure_change(self) -> None:
         """
@@ -102,7 +80,7 @@ class FileConfigurator(object):
             return
 
         for change in self.__change:
-            self.replace_text(change['old'], change['new'])
+            self.__file.change(change['old'], change['new'])
 
     def append_text(self, line, comment):
         """
@@ -115,8 +93,7 @@ class FileConfigurator(object):
 
         print("Appending Line: " + line, end="")
 
-        with open(self.file_path, "a") as file:
-            file.write(line)
+        self.__file.append(line)
 
     def configure_append(self) -> None:
         """
@@ -133,7 +110,7 @@ class FileConfigurator(object):
         for append in self.__append:
             # then check if this line is already appended
             # and if not, append it
-            if not self.line_exists(append):
+            if not self.__line_exists(append):
                 self.append_text(append['line'], append['comment'])
 
     def add_text(self, text_search, line_to_add, comment) -> None:
@@ -168,16 +145,13 @@ class FileConfigurator(object):
         for add in self.__add:
             # then check if this line is already appended
             # and if not, add it
-            if not self.line_exists(add):
-                self.add_text(add['after'], add['line'], add['comment'])
+            if not self.__line_exists(add):
+                self.__file.add(add['after'], add['line'])
 
     def configure(self):
 
         print("=====================================")
-        print("Configuring " + self.file_path + " file\n")
-
-        # change open permission
-        BashConnector.change_file_permission('777', self.__file_path)
+        print("Configuring " + self.__file_path + " file\n")
 
         # do changing of lines first
         self.configure_change()
@@ -188,23 +162,17 @@ class FileConfigurator(object):
         # then do the adding
         self.configure_add()
 
+        # change open permission
+        BashConnector.change_file_permission('777', self.__file_path)
+
+        # write to file
+        self.__write_file()
+
         # change closed permission
         BashConnector.change_file_permission(self.__permission, self.__file_path)
 
-    def line_exists(self, search_line) -> bool:
-        """
-        Checks if line is already in the file.
-        If so return true, if not false.
-        :param search_line: dict containing line and comment
-        the line to search for
-        :return: boolean
-        """
-        search_line = self.__make_line(search_line['line'], "", self.__comment_symbol)
 
-        with fileinput.FileInput(self.__file_path, inplace=False) as file:
-            for line in file:
-                if line == search_line:
-                    print("The Line already exists : " + search_line, end='')
-                    return True
 
-        return False
+
+
+
