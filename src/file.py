@@ -7,7 +7,7 @@ class File(object):
     def __init__(self, file_name: str)-> None:
         super().__init__()
 
-        self.__file_content = self.__read_file(file_name)
+        self.__content = self.__read_file(file_name)
 
     def __read_file(self, file_name: str)-> str:
         """
@@ -18,22 +18,26 @@ class File(object):
         with open(file_name) as file:
             return file.read().strip()
 
+    @property
+    def content(self):
+        return self.__content
+
     def __add_line(self):
         pass
 
-    def add(self):
+    def add(self, text: str, after: str):
         pass
 
-    def change(self):
+    def change(self, old: str, new: str):
         pass
 
-    def remove(self):
+    def remove(self, text: str):
         pass
 
     def append(self, text: str):
-        a = self.__file_content
+        a = self.__content
         pass
 
-    def prepend(self):
+    def prepend(self, text: str):
         pass
 
