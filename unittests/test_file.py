@@ -65,6 +65,47 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
+    def test_add_when_last_element(self, mock_open):
+        # Arrange
+        mock_open.side_effect = [
+            mock.mock_open(read_data=self.file_content).return_value
+        ]
+
+        expected_content = "Errors Off\nSomething Else Off\n" \
+                           "Some Configuration\n[mode]\n    Some other configuration\nSome Added Text"
+
+        # Act
+        file = File("testfile.json")
+        file.add("Some Added Text", "    Some other configuration")
+
+        # Assert
+        self.assertEqual(expected_content, file.content)
+
+    @mock.patch("builtins.open", create=True)
+    def test_add_when_multi_line_text(self, mock_open):
+        # Arrange
+        mock_open.side_effect = [
+            mock.mock_open(read_data=self.file_content).return_value
+        ]
+
+        expected_content = "Errors Off\nSomething Else Off\n" \
+                           "<Directory /var/www/>\n    Options Indexes FollowSymLinks\n" \
+                           "    AllowOverride None\n" \
+                           "</Directory>\n" \
+                           "Some Configuration\n[mode]\n    Some other configuration"
+
+        content_to_add = "<Directory /var/www/>\n    Options Indexes FollowSymLinks\n" \
+                           "    AllowOverride None\n" \
+                           "</Directory>"
+
+        # Act
+        file = File("testfile.json")
+        file.add(content_to_add, "Something Else Off")
+
+        # Assert
+        self.assertEqual(expected_content, file.content)
+
+    @mock.patch("builtins.open", create=True)
     def test_change(self, mock_open):
         # Arrange
         mock_open.side_effect = [
