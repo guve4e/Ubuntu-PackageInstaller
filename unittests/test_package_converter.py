@@ -41,7 +41,7 @@ class TestPackageConverter(TestCase):
     def testPackageConverter(self, mock_open):
         # Arrange
         mock_open.side_effect = [
-            mock.mock_open(read_data=self.file_content).return_value
+            mock.mock_open(read_data=self.file_content_list).return_value
         ]
 
         # Act
