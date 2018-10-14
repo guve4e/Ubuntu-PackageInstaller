@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-import subprocess
 import fileinput
 from src.json_parser import JsonParser
-
+from src.bash_connector import BashConnector
 
 class FileConfigurator(object):
 
@@ -24,7 +23,6 @@ class FileConfigurator(object):
             self.__add = self.__json_parser.json_data['add']
         except Exception as e:
             print("Wrong JSON file! Exception : " + str(e))
-
 
     @property
     def file_path(self):
@@ -73,22 +71,6 @@ class FileConfigurator(object):
     @permission.setter
     def permission(self, value):
         self.__permission = value
-
-    @classmethod
-    def change_file_permission(cls, mode, file) -> None:
-        """
-        Uses chmod to change the permission of the file.
-        :param mode: string chmod mode Ex: '777'
-        :param file: the file to be chmod-ed
-        :return: void
-        :raises: when subprocess fails
-        """
-
-        try:
-            subprocess.call(['chmod', mode, file])
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
 
     @classmethod
     def make_line(cls, line, comment, comment_symbol) -> str:
@@ -199,7 +181,7 @@ class FileConfigurator(object):
         print("Configuring " + self.file_path + " file\n")
 
         # change open permission
-        self.change_file_permission('777', self.__file_path)
+        BashConnector.change_file_permission('777', self.__file_path)
 
         # do changing of lines first
         self.configure_change()
@@ -211,7 +193,7 @@ class FileConfigurator(object):
         self.configure_add()
 
         # change closed permission
-        self.change_file_permission(self.__permission, self.__file_path)
+        BashConnector.change_file_permission(self.__permission, self.__file_path)
 
     def line_exists(self, search_line) -> bool:
         """

@@ -4,7 +4,7 @@ import subprocess
 class BashConnector(object):
 
     @classmethod
-    def apt_cache(cls, package: {}) -> str:
+    def apt_cache(cls, package: {})-> str:
         """
         Script uses apt-cache policy (ubuntu program)
         to gather information for a package (installed
@@ -31,7 +31,7 @@ class BashConnector(object):
         return shell_output
 
     @classmethod
-    def install_package(cls, command) -> None:
+    def install_package(cls, command)-> None:
         """
         Runs a terminal command.
         Ex:
@@ -62,4 +62,19 @@ class BashConnector(object):
             output = e.output
             print(output)
 
+    @classmethod
+    def change_file_permission(cls, mode, file)-> None:
+        """
+        Uses chmod to change the permission of the file.
+        :param mode: string chmod mode Ex: '777'
+        :param file: the file to be chmod-ed
+        :return: void
+        :raises: when subprocess fails
+        """
+
+        try:
+            subprocess.call(['chmod', mode, file])
+        except subprocess.CalledProcessError as e:
+            output = e.output
+            print(output)
 
