@@ -7,7 +7,7 @@ from src.json_parser import JsonParser
 
 class ConfigurationFileTestCase(unittest.TestCase):
     def setUp(self):
-        self.file = FileConfigurator(JsonParser("testjson.json"))
+        self.__file_configurator = FileConfigurator(JsonParser("testjson.json"))
 
     def runTest(self):
         self.test_configure_change()
@@ -43,7 +43,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
 
     def test_configure_change(self):
         # Act
-        self.file.configure_change()
+        self.__file_configurator.configure_change()
         list_of_lines = []
 
         with open('testfile.txt') as fin:
@@ -61,7 +61,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
     def test_configure_append(self):
 
         # Act
-        self.file.configure_append()
+        self.__file_configurator.configure_append()
         list_of_lines = []
 
         with open('testfile.txt') as fin:
@@ -79,7 +79,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
     def test_configure_add(self):
 
         # Act
-        self.file.configure_add()
+        self.__file_configurator.configure_add()
         list_of_lines = []
 
         with open('testfile.txt') as fin:

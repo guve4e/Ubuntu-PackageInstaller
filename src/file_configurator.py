@@ -6,10 +6,6 @@ from src.bash_connector import BashConnector
 class FileConfigurator(object):
 
     def __init__(self, json_parser: JsonParser) -> None:
-        """
-
-        :param json_parser:
-        """
         super().__init__()
 
         self.__json_parser = json_parser
@@ -86,7 +82,6 @@ class FileConfigurator(object):
         :param text_replace: string text to be replaced
         :return:
         """
-
         print("Replacing :'" + text_search + "' with '" + text_replace + "'")
 
         with fileinput.FileInput(self.__file_path, inplace=True, backup='.bak') as file:
