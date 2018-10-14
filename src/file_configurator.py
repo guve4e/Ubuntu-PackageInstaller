@@ -3,9 +3,10 @@ import fileinput
 from src.json_parser import JsonParser
 from src.bash_connector import BashConnector
 
+
 class FileConfigurator(object):
 
-    def __init__(self, json_parser: JsonParser) -> None:
+    def __init__(self, json_parser: JsonParser)-> None:
         super().__init__()
 
         self.__json_parser = json_parser
@@ -69,7 +70,7 @@ class FileConfigurator(object):
         self.__permission = value
 
     @classmethod
-    def make_line(cls, line, comment, comment_symbol) -> str:
+    def __make_line(cls, line, comment, comment_symbol) -> str:
         if not comment:
             return line + "\n"
         else:
@@ -110,7 +111,7 @@ class FileConfigurator(object):
         :param comment:
         :return:
         """
-        line = self.make_line(line, comment, self.__comment_symbol)
+        line = self.__make_line(line, comment, self.__comment_symbol)
 
         print("Appending Line: " + line, end="")
 
@@ -143,7 +144,7 @@ class FileConfigurator(object):
         :param comment: string the comment to be added
         :return: void
         """
-        line_to_add = self.make_line(line_to_add, comment, self.__comment_symbol)
+        line_to_add = self.__make_line(line_to_add, comment, self.__comment_symbol)
         print("Adding Line: " + line_to_add, end="")
 
         with fileinput.FileInput(self.__file_path, inplace=True, backup='.bak') as file:
@@ -198,7 +199,7 @@ class FileConfigurator(object):
         the line to search for
         :return: boolean
         """
-        search_line = self.make_line(search_line['line'], "", self.__comment_symbol)
+        search_line = self.__make_line(search_line['line'], "", self.__comment_symbol)
 
         with fileinput.FileInput(self.__file_path, inplace=False) as file:
             for line in file:

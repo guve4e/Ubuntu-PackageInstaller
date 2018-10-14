@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 import unittest
+from unittest import TestCase, mock
 from src.file import File
 
 class FileTest(unittest.TestCase):
     def setUp(self):
-        pass
+        self.file_content = "Errors Off\nSomething Else Off\nSome Configuration\n[mode]"
 
     def runTest(self):
         pass
@@ -12,10 +13,15 @@ class FileTest(unittest.TestCase):
     def tearDown(self):
        pass
 
-    def test_append(self):
+    @mock.patch("builtins.open", create=True)
+    def test_append(self, mock_open):
         # Arrange
-        file = File("testfile.json")
+        mock_open.side_effect = [
+            mock.mock_open(read_data=self.file_content).return_value
+        ]
 
+        file = File("testfile.json")
+        file.append("SomeText")
         # # Act
 
         # # Assert
