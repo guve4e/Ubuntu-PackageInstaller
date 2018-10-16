@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import fileinput
+
 from src.json_parser import JsonParser
 from src.bash_connector import BashConnector
 from src.file import File
@@ -36,7 +36,7 @@ class FileConfigurator(object):
         Changes content to file. Searches for a substring
         and replaces it with the given text
         """
-        self.__file.change(config['old'], config['new'])
+        self.__file.change(config['search_text'], config['text'])
 
     def configure_append(self, config: {})-> None:
         """
@@ -45,7 +45,7 @@ class FileConfigurator(object):
         that the line is unique and the line actually exists
         """
         if config['unique']:
-            if self.__line_exists(config['text']):
+            if self.__file.line_exists(config['text']):
                 return
 
         self.__file.append(config['text'])
@@ -57,7 +57,7 @@ class FileConfigurator(object):
         that the line is unique and the line actually exists
         """
         if config['unique']:
-            if self.__line_exists(config['text']):
+            if self.__file.line_exists(config['text']):
                 return
 
         self.__file.add(config['text'], config['after'])

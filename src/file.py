@@ -2,13 +2,26 @@
 
 
 class File(object):
-
+    """
+    Inefficient!
+    It manipulates two data structures,
+    (__content and __content_list) instead of one.
+    TODO Get rid of one of the data structures
+    """
     def __init__(self, file_name: str)-> None:
         super().__init__()
 
         self.__file_path = file_name
         self.__content = self.read_file(file_name)
+        self.__content_list = None
+        self.__update_content_list()
+
+    def __update_content_list(self):
         self.__content_list = self.__content.splitlines()
+
+    @property
+    def content(self):
+        return self.__content
 
     def read_file(self, file_name: str)-> str:
         """
@@ -30,12 +43,8 @@ class File(object):
         print(self.__content)
         file.close()
 
-    @property
-    def content(self):
-        return self.__content
-
-    def __close_file(self):
-        pass
+    def line_exists(self, search_line)-> bool:
+        return search_line in self.__content_list
 
     def add(self, text: str, after: str):
         """
@@ -64,6 +73,7 @@ class File(object):
 
     def change(self, old: str, new: str):
         self.__content = self.__content.replace(old, new)
+        self.__update_content_list()
 
     def remove(self, text: str):
         """
@@ -87,7 +97,9 @@ class File(object):
 
     def append(self, text: str):
         self.__content = self.__content + "\n" + text
+        self.__update_content_list()
 
     def prepend(self, text: str):
         self.__content = text + "\n" + self.__content
+        self.__update_content_list()
 

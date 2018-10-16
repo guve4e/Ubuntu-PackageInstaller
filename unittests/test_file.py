@@ -138,3 +138,17 @@ class FileTest(unittest.TestCase):
 
         # Assert
         self.assertEqual(expected_content, file.content)
+
+    @mock.patch("builtins.open", create=True)
+    def test_line_exists(self, mock_open):
+        # Arrange
+        mock_open.side_effect = [
+            mock.mock_open(read_data=self.file_content).return_value
+        ]
+
+        # Act
+        file = File("testfile.json")
+
+        # Assert
+        self.assertTrue(file.line_exists("[mode]"))
+        self.assertFalse(file.line_exists("Some String that should not be there"))

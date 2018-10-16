@@ -2,19 +2,20 @@
 import unittest
 import os
 import subprocess
+from unittest.mock import patch, MagicMock
+
+from src.bash_connector import BashConnector
 from src.file_configurator import FileConfigurator
+from src.json_parser import JsonParser
 
 
 class ConfigurationFileTestCase(unittest.TestCase):
     def setUp(self):
-        self.file = FileConfigurator("testjson.json")
+        self.file_content = "Errors Off\nSomething Else Off\n" \
+                            "Some Configuration\n[mode]\n    Some other configuration"
 
     def runTest(self):
-        self.test_configure_change()
-        self.test_change_permission()
-        self.test_configure_append()
-        self.test_configure_add()
-        self.test_no_add()
+        pass
 
     @staticmethod
     def check_permission(option):
@@ -22,112 +23,67 @@ class ConfigurationFileTestCase(unittest.TestCase):
 
     @staticmethod
     def change_permission(mode):
-        try:
-            subprocess.call(['chmod', mode, "testjson.json"])
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
+        subprocess.call(['chmod', mode, "testjson.json"])
 
-    def tearDown(self):
-        """
-        Doesnt TEST, but restores the testing file
-        and it checks for competition
-        :return:
-        """
-        # delete everything first
-        open('testfile.txt', 'w').close()
-
-        # write everything back
-        with open('testfile.txt', 'w') as file:
-            file.writelines("Errors Off\n")
-            file.writelines("Something Else Off\n")
-            file.writelines("Appended Line\n")
-
-        list_of_lines = []
-
-        with open('testfile.txt') as fin:
-            for line in fin:
-                list_of_lines.append(line)
-
-        self.change_permission('444')
-
-    def test_change_permission(self):
+    @patch("src.file.File.write_file", create=True)
+    @patch("src.file.File.read_file", create=True)
+    @patch("src.json_parser.JsonParser.load_json", create=True)
+    def test_file_configurator(self, mock_parser, mock_open_config_file, mock_close_config_file):
         # Arrange
-        self.change_permission('444')
+        mock_parser.return_value = {
+            "file_path": "/etc/apache2/apache2.conf",
+            "comment_symbol": "#",
+            "permission": "444",
+            "config": [
+                {
+                    "verb": "append",
+                    "unique": True,
+                    "text": "Include /etc/phpmyadmin/apache.conf"
+                },
+                {
+                    "verb": "add",
+                    "unique": True,
+                    "after": "Something Else Off",
+                    "text": "<Directory /var/www/>\n    Options Indexes FollowSymLinks\n    AllowOverride "
+                            "None\n</Directory>"
+                },
+                {
+                    "verb": "change",
+                    "unique": True,
+                    "search_text": "Something Else Off",
+                    "text": "Something Else On"
+                },
+                {
+                    "verb": "add",
+                    "unique": False,
+                    "after": "Errors Off",
+                    "text": "Errors Off"
+                },
+                {
+                    "verb": "add",
+                    "unique": True,
+                    "after": "[mode]",
+                    "text": "    Some other configuration"
+                }
+            ]
+        }
+
+        mock_open_config_file.return_value = "Errors Off\nSomething Else Off\n" \
+                                             "Some Configuration\n[mode]\n    Some other configuration"
+
+        mock_close_config_file.return_value = None
+
+        expected_file_content = "Errors Off\nErrors Off\nSomething Else On\n<Directory /var/www/>\n    Options Indexes " \
+                                "FollowSymLinks\n    AllowOverride None\n</Directory>\n" \
+                                "Some Configuration\n[mode]\n    Some other configuration\nInclude " \
+                                "/etc/phpmyadmin/apache.conf"
+
+        mock_bash_connector = BashConnector()
+        mock_bash_connector.change_file_permission = MagicMock()
 
         # Act
-        self.file.change_file_permission('777', "testjson.json")
+        file_configurator = FileConfigurator(JsonParser("some_file"), mock_bash_connector)
+        file_configurator.configure()
 
         # Assert
-        self.assertEqual(True, self.check_permission(os.W_OK))
-
-    def test_configure_change(self):
-        # Act
-        self.file.configure_change()
-        list_of_lines = []
-
-        with open('testfile.txt') as fin:
-            for line in fin:
-                list_of_lines.append(line)
-
-        # Assert
-        self.assertEqual("Errors On\n", list_of_lines[0])
-        self.assertEqual("Something Else On\n", list_of_lines[1])
-        self.assertEqual(True, self.check_permission(os.O_RDONLY))
-
-        # Clean Up
-        self.tearDown()
-
-    def test_configure_append(self):
-
-        # Act
-        self.file.configure_append()
-        list_of_lines = []
-
-        with open('testfile.txt') as fin:
-            for line in fin:
-                list_of_lines.append(line)
-
-        # Assert
-        self.assertEqual("Line 1\n", list_of_lines[3])
-        self.assertEqual("Line 2 # Comment 2\n", list_of_lines[4])
-        self.assertEqual(True, self.check_permission(os.O_RDONLY))
-
-        # Clean Up
-        self.tearDown()
-
-    def test_configure_add(self):
-
-        # Act
-        self.file.configure_add()
-        list_of_lines = []
-
-        with open('testfile.txt') as fin:
-            for line in fin:
-                list_of_lines.append(line)
-
-        # Assert
-        self.assertEqual("Insert in the middle 1 # Comment 1\n", list_of_lines[1])
-        self.assertEqual("Insert in the middle 2 # Comment 2\n", list_of_lines[3])
-        self.assertEqual(True, self.check_permission(os.O_RDONLY))
-
-        # Clean Up
-        self.tearDown()
-
-    def test_no_add(self):
-        # Arrange
-        file = FileConfigurator("testjson2.json")
-
-        # Act
-        file.configure_append()
-        list_of_lines = []
-
-        with open('testfile.txt') as fin:
-            for line in fin:
-                list_of_lines.append(line)
-
-        # Assert
-        self.assertEqual("Errors Off\n", list_of_lines[0])
-        self.assertEqual("Something Else Off\n", list_of_lines[1])
-        self.assertEqual(True, self.check_permission(os.O_RDONLY))
-
+        self.assertEqual(expected_file_content, file_configurator.file.content,)
