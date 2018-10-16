@@ -24,7 +24,7 @@ class File(object):
     def content(self):
         return self.__content
 
-    def __add_line(self):
+    def __close_file(self):
         pass
 
     def add(self, text: str, after: str):

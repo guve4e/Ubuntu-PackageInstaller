@@ -145,8 +145,11 @@ class FileConfigurator(object):
         for add in self.__add:
             # then check if this line is already appended
             # and if not, add it
-            if not self.__line_exists(add):
-                self.__file.add(add['after'], add['line'])
+            if add['unique']:
+                if not self.__line_exists(add):
+                    self.__file.add(add['line'], add['after'])
+            else:
+                self.__file.add(add['line'], add['after'])
 
     def configure(self):
 
