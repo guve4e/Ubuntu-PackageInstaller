@@ -7,170 +7,91 @@ from src.file import File
 
 class FileConfigurator(object):
 
-    def __init__(self, json_parser: JsonParser)-> None:
+    def __init__(self, json_parser: JsonParser, bash_connector: BashConnector)-> None:
         super().__init__()
 
         self.__json_parser = json_parser
+        self.__bash_connector = bash_connector
 
         try:
             self.__file_path = self.__json_parser.json_data['file_path']
             self.__comment_symbol = self.__json_parser.json_data['comment_symbol']
             self.__permission = self.__json_parser.json_data['permission']
-            self.__config = self.__json_parser.json_data['config']
+            self.__config_list = self.__json_parser.json_data['config']
 
         except Exception as e:
             print("Wrong JSON file! Exception : " + str(e))
 
         self.__file = File(self.__file_path)
 
-    @classmethod
-    def __make_line(cls, line, comment, comment_symbol) -> str:
-        if not comment:
-            return line + "\n"
-        else:
-            return line + " " + comment_symbol + " " + comment + "\n"
+    @property
+    def file(self):
+        return self.__file
 
-    def __line_exists(self, search_line) -> bool:
-        """
-        Checks if line is already in the file.
-        If so return true, if not false.
-        :param search_line: dict containing line and comment
-        the line to search for
-        :return: boolean
-        """
-        search_line = self.__make_line(search_line['line'], "", self.__comment_symbol)
-
-        with fileinput.FileInput(self.__file_path, inplace=False) as file:
-            for line in file:
-                if line == search_line:
-                    print("The Line already exists : " + search_line, end='')
-                    return True
-
+    def __line_exists(self, search_line)-> bool:
         return False
 
-    def __write_file(self):
-        file = open(self.__file_path, 'w+')
-        file.truncate(0)
-        print(self.__file.content)
-        file.close()
-
-    def replace_text(self, text_search, text_replace) -> None:
+    def configure_change(self, config: {}) -> None:
         """
-        Replaces pieces of text with other text.
-        :param text_search: string text to be searched
-        :param text_replace: string text to be replaced
-        :return:
+        Changes content to file. Searches for a substring
+        and replaces it with the given text
         """
-        print("Replacing :'" + text_search + "' with '" + text_replace + "'")
+        self.__file.change(config['old'], config['new'])
 
-        self.__file.change(text_search, text_replace)
-
-    def configure_change(self) -> None:
-        """
-        Changes content in a file.
-        :return: void, it returns early if
-        change variable is not list
-        """
-
-        # check if change is empty
-        # then there is no need to change text
-        if not isinstance(self.__change, list):
-            return
-
-        for change in self.__change:
-            self.__file.change(change['old'], change['new'])
-
-    def append_text(self, line, comment):
-        """
-        Appends text to a file.
-        :param line: string
-        :param comment:
-        :return:
-        """
-        line = self.__make_line(line, comment, self.__comment_symbol)
-
-        print("Appending Line: " + line, end="")
-
-        self.__file.append(line)
-
-    def configure_append(self) -> None:
+    def configure_append(self, config: {})-> None:
         """
         Appends content to file.
-        :return: void, it returns early if
-        append variable is not list
+        :return: void, returns early if the config specifies
+        that the line is unique and the line actually exists
         """
+        if config['unique']:
+            if self.__line_exists(config['text']):
+                return
 
-        # check if append is empty
-        # then there is no need to append text
-        if not isinstance(self.__append, list):
-            return
+        self.__file.append(config['text'])
 
-        for append in self.__append:
-            # then check if this line is already appended
-            # and if not, append it
-            if not self.__line_exists(append):
-                self.append_text(append['line'], append['comment'])
-
-    def add_text(self, text_search, line_to_add, comment) -> None:
-        """
-        Adds text below particular line in the file.
-        :param text_search: string, the search line
-        :param line_to_add: string the line to be added
-        :param comment: string the comment to be added
-        :return: void
-        """
-        line_to_add = self.__make_line(line_to_add, comment, self.__comment_symbol)
-        print("Adding Line: " + line_to_add, end="")
-
-        with fileinput.FileInput(self.__file_path, inplace=True, backup='.bak') as file:
-            for file_line in file:
-                print(file_line, end='')
-                if file_line.startswith(text_search):
-                    print(line_to_add, end='')
-
-    def configure_add(self) -> None:
+    def configure_add(self, config: {})-> None:
         """
         Adds content to file, after a particular piece of text.
-        :return: void, it returns early if
-        append variable is not list
+        :return: void, returns early if the config specifies
+        that the line is unique and the line actually exists
         """
+        if config['unique']:
+            if self.__line_exists(config['text']):
+                return
 
-        # check if append is empty
-        # then there is no need to append text
-        if not isinstance(self.__add, list):
-            return
-
-        for add in self.__add:
-            # then check if this line is already appended
-            # and if not, add it
-            if add['unique']:
-                if not self.__line_exists(add):
-                    self.__file.add(add['line'], add['after'])
-            else:
-                self.__file.add(add['line'], add['after'])
+        self.__file.add(config['text'], config['after'])
 
     def configure(self):
+        """
 
+        :return:
+        """
         print("=====================================")
         print("Configuring " + self.__file_path + " file\n")
 
-        # do changing of lines first
-        self.configure_change()
+        for config in self.__config_list:
 
-        # then do the appending
-        self.configure_append()
-
-        # then do the adding
-        self.configure_add()
+            if config['verb'] == 'add':
+                self.configure_add(config)
+            elif config['verb'] == 'change':
+                self.configure_change(config)
+            elif config['verb'] == 'append':
+                self.configure_append(config)
+            elif config['verb'] == 'remove':
+                # TODO not implemented yet
+                pass
+            else:
+                raise Exception("Bad verb in config json file!")
 
         # change open permission
-        BashConnector.change_file_permission('777', self.__file_path)
+        self.__bash_connector.change_file_permission('777', self.__file_path)
 
         # write to file
-        self.__write_file()
+        self.__file.write_file()
 
         # change closed permission
-        BashConnector.change_file_permission(self.__permission, self.__file_path)
+        self.__bash_connector.change_file_permission(self.__permission, self.__file_path)
 
 
 

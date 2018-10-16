@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import fileinput
 
 
 class File(object):
@@ -19,6 +18,17 @@ class File(object):
         """
         with open(file_name) as file:
             return file.read().strip()
+
+    def write_file(self):
+        """
+        After file manipulation is done,
+        it writes __content string to file.
+        :return:
+        """
+        file = open(self.__file_path, 'w+')
+        file.truncate(0)
+        print(self.__content)
+        file.close()
 
     @property
     def content(self):
