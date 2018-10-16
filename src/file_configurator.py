@@ -16,14 +16,12 @@ class FileConfigurator(object):
             self.__file_path = self.__json_parser.json_data['file_path']
             self.__comment_symbol = self.__json_parser.json_data['comment_symbol']
             self.__permission = self.__json_parser.json_data['permission']
-            self.__change = self.__json_parser.json_data['change']
-            self.__append = self.__json_parser.json_data['append']
-            self.__add = self.__json_parser.json_data['add']
+            self.__config = self.__json_parser.json_data['config']
+
         except Exception as e:
             print("Wrong JSON file! Exception : " + str(e))
 
         self.__file = File(self.__file_path)
-
 
     @classmethod
     def __make_line(cls, line, comment, comment_symbol) -> str:

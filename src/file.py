@@ -8,10 +8,10 @@ class File(object):
         super().__init__()
 
         self.__file_path = file_name
-        self.__content = self.__read_file(file_name)
+        self.__content = self.read_file(file_name)
         self.__content_list = self.__content.splitlines()
 
-    def __read_file(self, file_name: str)-> str:
+    def read_file(self, file_name: str)-> str:
         """
         Reads data from text file.
         :param file_name: the name of the file

@@ -3,7 +3,7 @@ import unittest
 import os
 import subprocess
 from unittest.mock import MagicMock
-from unittest import TestCase
+from unittest import TestCase, mock
 from unittest.mock import patch
 
 from src.file_configurator import FileConfigurator
@@ -11,7 +11,8 @@ from src.json_parser import JsonParser
 
 class ConfigurationFileTestCase(unittest.TestCase):
     def setUp(self):
-        pass
+        self.file_content = "Errors Off\nSomething Else Off\n" \
+                            "Some Configuration\n[mode]\n    Some other configuration"
 
     def runTest(self):
        pass
@@ -43,13 +44,34 @@ class ConfigurationFileTestCase(unittest.TestCase):
         #
         # self.change_permission('444')
 
+    @patch("src.file.File.read_file", create=True)
+    @patch("src.json_parser.JsonParser.load_json", create=True)
+    def test_foo(self, mock_parser, mock_open_config_file):
 
-    def test_foo(self):
+        mock_parser.return_value = {
+            "file_path": "/etc/apache2/apache2.conf",
+            "comment_symbol": "#",
+            "permission": "444",
+            "config": [
+                {
+                    "verb": "append",
+                    "unique": True,
+                    "text": "Include /etc/phpmyadmin/apache.conf"
+                },
+                {
+                    "verb": "add",
+                    "unique": True,
+                    "after": "</Directory>",
+                    "text": "<Directory /var/www/>\n    Options Indexes FollowSymLinks\n    AllowOverride "
+                            "None\n</Directory>\n "
+                }
+            ]
+        }
 
-        mock_json_parser = JsonParser("somefile.json")
-        mock_json_parser.load_json = MagicMock(return_value={"key", "value", "key2", "value2"})
+        mock_open_config_file.return_value = "Errors Off\nSomething Else Off\n" \
+                            "Some Configuration\n[mode]\n    Some other configuration"
 
-        f = FileConfigurator(mock_json_parser)
+        f = FileConfigurator(JsonParser("some_file"))
         pass
 
 
