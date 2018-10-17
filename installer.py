@@ -7,6 +7,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 
+from src.json_parser import JsonParser
 from src.package_converter import PackageConverter
 from src.file_configurator import FileConfigurator
 from src.package_installer import PackageInstaller
@@ -135,8 +136,7 @@ def config(file_path):
     configurations.
     :return: void
     """
-    cf = FileConfigurator(file_path)
-    cf.configure()
+    FileConfigurator(JsonParser(file_path), BashConnector()).configure()
 
 
 if __name__ == "__main__":
