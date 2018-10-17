@@ -111,17 +111,11 @@ def configure_files(config_name):
     :param config_name: the name of the configuration
     :return: void
     """
-
     start_time = time.time()
+    files = get_file_list(config_name)
 
-    try:
-        files = get_file_list(config_name)
-
-        for file in files:
-            config("configs/" + file)
-
-    except IOError as e:
-        print(e.strerror)
+    for file in files:
+        config("configs/" + file)
 
     end_time = time.time()
     elapsed_time = round((end_time - start_time), 2)
@@ -136,8 +130,10 @@ def config(file_path):
     configurations.
     :return: void
     """
-    FileConfigurator(JsonParser(file_path), BashConnector()).configure()
-
+    try:
+        FileConfigurator(JsonParser(file_path), BashConnector()).configure()
+    except IOError as e:
+        print(e)
 
 if __name__ == "__main__":
 
@@ -157,10 +153,10 @@ if __name__ == "__main__":
         install_packages(packages)
     else:
         # install packages first
-        load_packages(cmd.config_name)
+        #load_packages(cmd.config_name)
 
         # then install programs
-        install_programs(cmd.config_name)
+        #(cmd.config_name)
 
         # then do the adjustments
         configure_files(cmd.config_name)

@@ -30,7 +30,7 @@ class File(object):
         :return: data from text file as string
         """
         if not os.path.exists(file_name):
-            raise Exception("The File {} doesn't exists!".format(file_name))
+            raise IOError("The File {} doesn't exists!".format(file_name))
 
         with open(file_name) as file:
             return file.read().strip()
