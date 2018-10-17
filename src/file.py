@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import os.path
 
 class File(object):
     """
@@ -29,6 +29,9 @@ class File(object):
         :param file_name: the name of the file
         :return: data from text file as string
         """
+        if not os.path.exists(file_name):
+            raise Exception("The File {} doesn't exists!".format(file_name))
+
         with open(file_name) as file:
             return file.read().strip()
 

@@ -152,3 +152,9 @@ class FileTest(unittest.TestCase):
         # Assert
         self.assertTrue(file.line_exists("[mode]"))
         self.assertFalse(file.line_exists("Some String that should not be there"))
+
+    def test_open_file_when_file_does_not_exist_must_throw_exception(self):
+        # Act
+        with self.assertRaises(Exception): File("some_file_that_should_not_exists.txt")
+
+

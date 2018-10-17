@@ -1,3 +1,0 @@
-Errors Off
-Something Else Off
-Appended Line
