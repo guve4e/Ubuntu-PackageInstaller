@@ -1,51 +1,31 @@
 {
-  "file_path" : "/etc/php/7.1/apache2/php.ini",
+  "file_path" : "/etc/php/7.0/apache2/php.ini",
   "comment_symbol" : ";",
   "permission" : "444",
-  "change" : [
+  "config": [
     {
-      "old" : "display_errors = Off",
-      "new" : "display_errors = On"
+      "verb": "change",
+      "unique": true,
+      "search_text": "display_errors = Off",
+      "text": "display_errors = On"
+
     },
     {
-      "old" : "display_startup_errors = Off",
-      "new" : "display_startup_errors = On"
-    }
-  ],
-  "append" : [
-    {
-      "line" : "zend_extension='/usr/lib/php/20151012/xdebug.so'",
-      "comment" : "Path to xdebug library"
+      "verb": "change",
+      "unique": true,
+      "search_text": "display_startup_errors = Off",
+      "text": "display_startup_errors = On"
     },
     {
-      "line" : "xdebug.remote_autostart=1",
-      "comment" : ""
-    },
-     {
-      "line" : "xdebug.remote_enable=1",
-      "comment" : ""
-    }, {
-      "line" : "xdebug.remote_handler=dbgp",
-      "comment" : ""
-    },
-     {
-      "line" : "xdebug.remote_mode=req",
-      "comment" : ""
-    },
-     {
-      "line" : "xdebug.remote_host=127.0.0.1",
-      "comment" : ""
+      "verb": "append",
+      "unique": true,
+      "text": "zend_extension='/usr/lib/php/20151012/xdebug.so'\nxdebug.remote_autostart=1\nxdebug.remote_enable=1\nxdebug.remote_handler=dbgp\nxdebug.remote_mode=req\nxdebug.remote_host=127.0.0.1\nxdebug.remote_port=9000"
     },
     {
-      "line" : "xdebug.remote_port=9000",
-      "comment" : ""
-    }
-  ],
-  "add" : [
-    {
-      "after" : ";sendmail_path",
-      "line" : "sendmail_path = /usr/sbin/sendmail -t",
-      "comment" : ""
+      "verb": "add",
+      "unique": true,
+      "after": ";sendmail_path",
+      "text": "sendmail_path = /usr/sbin/sendmail -t"
     }
   ]
 }

@@ -2,12 +2,11 @@
   "file_path" : "/etc/apache2/apache2.conf",
   "comment_symbol" : "#",
   "permission" : "444",
-  "change" : "",
-  "append" : [
+  "config": [
     {
-      "line" : "Include /etc/phpmyadmin/apache.conf",
-      "comment" : ""
+      "verb": "append",
+      "unique": true,
+      "text": "Include /etc/phpmyadmin/apache.conf"
     }
-  ],
-  "add" : ""
+  ]
 }
