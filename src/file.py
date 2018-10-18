@@ -43,7 +43,7 @@ class File(object):
         """
         file = open(self.__file_path, 'w+')
         file.truncate(0)
-        print(self.__content)
+        file.write(self.__content)
         file.close()
 
     def line_exists(self, search_line)-> bool:
