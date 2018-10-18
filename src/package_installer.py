@@ -5,7 +5,8 @@ class PackageInstaller(object):
     """
     Installs packages
     """
-    def __init__(self, connector, packages) -> None:
+
+    def __init__(self, connector, packages)-> None:
 
         self.__packages_installed = 0
         self.__packages = packages
@@ -15,7 +16,7 @@ class PackageInstaller(object):
             self.__run_package_installer(package)
 
     @classmethod
-    def found_char(cls, string: str, char: str) -> bool:
+    def found_char(cls, string: str, char: str)-> bool:
         """
         It is looking for a particular char
         in a string
@@ -35,7 +36,7 @@ class PackageInstaller(object):
             return True
 
     @classmethod
-    def split_string(cls, string: str, char: str) -> str:
+    def split_string(cls, string: str, char: str)-> str:
         """
         Splits string and returns
         the first part
@@ -47,7 +48,7 @@ class PackageInstaller(object):
         return string
 
     @classmethod
-    def sanitize_str(cls, string: str) -> str:
+    def sanitize_str(cls, string: str)-> str:
         """
         Removes 'b' and ' from a string
         :param string: the string to be sanitized
@@ -63,7 +64,7 @@ class PackageInstaller(object):
         return string
 
     @classmethod
-    def remove_chars(cls, string: str) -> str:
+    def remove_chars(cls, string: str)-> str:
         """
         Removes unnecessary characters from
         the string.
@@ -85,7 +86,7 @@ class PackageInstaller(object):
 
         return string
 
-    def __install(self, package) -> None:
+    def __install(self, package)-> None:
         """
         Wrapper around install_package
         :param package: json object representing package
@@ -101,21 +102,23 @@ class PackageInstaller(object):
             # increment the number of installed packages
             self.__packages_installed = self.__packages_installed + 1
 
-
     @classmethod
-    def __is_installed(cls, version: str) -> bool:
+    def __is_installed(cls, version: str)-> bool:
         """
         Checks if package is installed.
         :param version: string version of the package
         :return: boolean true/false
         """
 
-        if not version:
+        if not version or version == "'b'":
             return False
 
-        return cls.found_char(version, "none")
+        is_non_in_version = cls.found_char(version, "none")
 
+        if is_non_in_version:
+            return False
 
+        return True
     @classmethod
     def __extract_version(cls, output: str):
         """
@@ -137,7 +140,7 @@ class PackageInstaller(object):
         return version
 
     @classmethod
-    def __print_info(cls, package) -> None:
+    def __print_info(cls, package)-> None:
         # print some info
         print("###################################################")
         print("Installing : " + package['name'])
@@ -169,5 +172,5 @@ class PackageInstaller(object):
 
             print("This Package is already installed! Version is " + version + "\n")
 
-    def get_num_installed_packages(self) -> int:
+    def get_num_installed_packages(self)-> int:
         return self.__packages_installed

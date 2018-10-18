@@ -7,6 +7,8 @@ from src.bash_connector import BashConnector
 
 class TestPackageInstaller(TestCase):
 
+    mock_bash_connector: BashConnector
+
     def setUp(self):
         self.package_list = [
             {
@@ -44,27 +46,51 @@ class TestPackageInstaller(TestCase):
                         "command": "sudo apt install kdeconnect indicator-kdeconnect -y"
                     }
                 ]
+            },
+            {
+                "name": "MySQL",
+                "comment": "MySQL Installer",
+                "package name": "mysql-server",
+                "version": "Latest",
+                "commands": [
+                    {
+                        "commandDescription": "install",
+                        "command": "sudo apt-get install mysql-server -y"
+                    }
+                ]
             }
         ]
 
-        self.mockAptCache = b'apache7:\n' \
-                 b'Installed: 2.4.27-2ubuntu4.2\n' \
-                 b'Candidate: 2.4.27-2ubuntu4.2\n' \
-                 b'Version table:\n' \
-                 b'*** 2.4.27-2ubuntu4.2 500\n' \
-                 b'500 http://us.archive.ubuntu.com/ubuntu artful-updates/main amd64 Packages\n' \
-                 b'100 /var/lib/dpkg/status\n' \
-                 b'2.4.27-2ubuntu4.1 500\n' \
-                 b'500 http://security.ubuntu.com/ubuntu artful-security/main amd64 Packages\n' \
-                 b'2.4.27-2ubuntu3 500\n' \
-                 b'500 http://us.archive.ubuntu.com/ubuntu artful/main amd64 Packages\n'
+        self.mock_apt_cache_installed = b'apache2:\n' \
+                                        b'Installed: 2.4.27-2ubuntu4.2\n' \
+                                        b'Candidate: 2.4.27-2ubuntu4.2\n' \
+                                        b'Version table:\n' \
+                                        b'*** 2.4.27-2ubuntu4.2 500\n' \
+                                        b'500 http://us.archive.ubuntu.com/ubuntu artful-updates/main amd64 Packages\n' \
+                                        b'100 /var/lib/dpkg/status\n' \
+                                        b'2.4.27-2ubuntu4.1 500\n' \
+                                        b'500 http://security.ubuntu.com/ubuntu artful-security/main amd64 Packages\n' \
+                                        b'2.4.27-2ubuntu3 500\n' \
+                                        b'500 http://us.archive.ubuntu.com/ubuntu artful/main amd64 Packages\n'
 
-        self.mockBashConnector = BashConnector()
-        self.mockBashConnector.apt_cache = MagicMock(return_value=self.mockAptCache)
-        self.mockBashConnector.install_package = MagicMock()
-        self.mockBashConnector.update = MagicMock()
+        self.mock_apt_cache_not_installed = b'apache2:\n' \
+                                        b'Installed: (none)\n' \
+                                        b'Candidate: 2.4.27-2ubuntu4.2\n' \
+                                        b'Version table:\n' \
+                                        b'*** 2.4.27-2ubuntu4.2 500\n' \
+                                        b'500 http://us.archive.ubuntu.com/ubuntu artful-updates/main amd64 Packages\n' \
+                                        b'100 /var/lib/dpkg/status\n' \
+                                        b'2.4.27-2ubuntu4.1 500\n' \
+                                        b'500 http://security.ubuntu.com/ubuntu artful-security/main amd64 Packages\n' \
+                                        b'2.4.27-2ubuntu3 500\n' \
+                                        b'500 http://us.archive.ubuntu.com/ubuntu artful/main amd64 Packages\n'
 
-        self.package = PackageInstaller(self.mockBashConnector, self.package_list)
+        self.mock_bash_connector = BashConnector()
+        self.mock_bash_connector.apt_cache = MagicMock(return_value=self.mock_apt_cache_installed)
+        self.mock_bash_connector.install_package = MagicMock()
+        self.mock_bash_connector.update = MagicMock()
+
+        self.package = PackageInstaller(self.mock_bash_connector, self.package_list)
 
     def runTest(self):
         self.test_found_char()
@@ -122,3 +148,19 @@ class TestPackageInstaller(TestCase):
 
         # Assert
         self.assertEqual(expected_string, actual_string)
+
+    def test_package_installer(self):
+
+        mock_bash_connector = BashConnector()
+        mock_bash_connector.apt_cache = MagicMock()
+        mock_bash_connector.apt_cache.side_effect = [
+            self.mock_apt_cache_installed,
+            self.mock_apt_cache_not_installed,
+            b''
+        ]
+        mock_bash_connector.install_package = MagicMock()
+        mock_bash_connector.update = MagicMock()
+
+        f = PackageInstaller(mock_bash_connector, self.package_list)
+
+        self.assertEqual(5, f.get_num_installed_packages())
