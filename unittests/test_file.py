@@ -11,7 +11,16 @@ class FileTest(unittest.TestCase):
                             "Some Configuration\n[mode]\n    Some other configuration"
 
     def runTest(self):
-        pass
+        self.test_add()
+        self.test_append()
+        self.test_prepend()
+        self.test_add_when_last_element()
+        self.test_add_when_multi_line_text()
+        self.test_change()
+        self.test_remove()
+        self.test_find_text()
+        self.test_line_exists()
+        self.test_open_file_when_file_does_not_exist_must_throw_exception()
 
     def tearDown(self):
         pass

@@ -97,7 +97,7 @@ class TestPackageInstaller(TestCase):
         self.test_split_string()
         self.test_sanitize_string()
         self.test_remove_chars()
-
+        self.test_package_installer()
 
     def test_found_char(self):
         # Arrange

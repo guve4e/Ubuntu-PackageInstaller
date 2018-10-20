@@ -15,7 +15,7 @@ class ConfigurationFileTestCase(unittest.TestCase):
                             "Some Configuration\n[mode]\n    Some other configuration"
 
     def runTest(self):
-        pass
+        self.test_file_configurator()
 
     @staticmethod
     def check_permission(option):
@@ -96,4 +96,4 @@ class ConfigurationFileTestCase(unittest.TestCase):
         file_configurator.configure()
 
         # Assert
-        self.assertEqual(expected_file_content, file_configurator.file.content,)
+        self.assertEqual(expected_file_content, file_configurator.file.content)
