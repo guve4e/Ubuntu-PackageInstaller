@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os.path
 
+
 class File(object):
     """
     Inefficient!
@@ -8,7 +9,8 @@ class File(object):
     (__content and __content_list) instead of one.
     TODO Get rid of one of the data structures
     """
-    def __init__(self, file_name: str)-> None:
+
+    def __init__(self, file_name: str) -> None:
         super().__init__()
 
         self.__file_path = file_name
@@ -48,6 +50,19 @@ class File(object):
 
     def line_exists(self, search_line)-> bool:
         return search_line in self.__content_list
+
+    def text_exists(self, text: str)-> bool:
+        """
+        Uses str.find() to search for a string in
+        the __content string.
+        :param text: the string to find
+        :return: boolean value
+        """
+        result = self.__content.find(text)
+        if result == -1:
+            return False
+        else:
+            return True
 
     def add(self, text: str, after: str):
         """
@@ -105,4 +120,3 @@ class File(object):
     def prepend(self, text: str):
         self.__content = text + "\n" + self.__content
         self.__update_content_list()
-

@@ -17,11 +17,13 @@ class FileTest(unittest.TestCase):
         pass
 
     @mock.patch("builtins.open", create=True)
-    def test_append(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_append(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = self.file_content + "\nSome Appended Text"
 
@@ -33,11 +35,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_prepend(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_prepend(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = "Some Prepended Text\n" + self.file_content
 
@@ -49,11 +53,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_add(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_add(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = "Errors Off\nSomething Else Off\nSome Added Text\n" \
                            "Some Configuration\n[mode]\n    Some other configuration"
@@ -66,11 +72,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_add_when_last_element(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_add_when_last_element(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = "Errors Off\nSomething Else Off\n" \
                            "Some Configuration\n[mode]\n    Some other configuration\nSome Added Text"
@@ -83,11 +91,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_add_when_multi_line_text(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_add_when_multi_line_text(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = "Errors Off\nSomething Else Off\n" \
                            "<Directory /var/www/>\n    Options Indexes FollowSymLinks\n" \
@@ -107,11 +117,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_change(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_change(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = "Errors Off\nSomething Else On\n" \
                            "Some Configuration\n[mode]\n    Some other configuration"
@@ -124,11 +136,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_remove(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_remove(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         expected_content = "Errors Off\n" \
                            "Some Configuration\n[mode]\n    Some other configuration"
@@ -141,11 +155,13 @@ class FileTest(unittest.TestCase):
         self.assertEqual(expected_content, file.content)
 
     @mock.patch("builtins.open", create=True)
-    def test_line_exists(self, mock_open):
+    @mock.patch('os.path.exists')
+    def test_line_exists(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         # Act
         file = File("testfile.json")
@@ -159,15 +175,21 @@ class FileTest(unittest.TestCase):
         with self.assertRaises(IOError): File("some_file_that_should_not_exists.txt")
 
     @mock.patch("builtins.open", create=True)
-    def test_find_text(self,mock_open):
+    @mock.patch('os.path.exists')
+    def test_find_text(self, file_exists, mock_open):
         # Arrange
         mock_open.side_effect = [
             mock.mock_open(read_data=self.file_content).return_value
         ]
+        file_exists.return_value = True
 
         # Act
         file = File("testfile.json")
 
-
-        # Assert
-        self.assertFalse()
+        test_cases = [
+            ("some string that is not suppose to be there", False),
+            ("Some Configuration\n[mode]\n    Some other configuration", True),
+        ]
+        for x, output in test_cases:
+            # Assert
+            self.assertEqual(file.text_exists(x), output)
