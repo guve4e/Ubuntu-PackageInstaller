@@ -1,5 +1,3 @@
-
-
 class PackageInstaller(object):
     """
     Installs packages
@@ -21,8 +19,7 @@ class PackageInstaller(object):
         in a string
         :param string: the string
         :param char: the char it is looking for
-        :return: boolean\]
-
+        :return: boolean
         """
         str_version = str(string)
         # try to find substring
@@ -162,9 +159,8 @@ class PackageInstaller(object):
         # check if installed
         if not self.__is_installed(version):
             # if not, installed it
-            self.__install(package)
-            # update
             self.__bash_connector.update()
+            self.__install(package)
         else:
             # else, just address the user
             # remove certain chars
