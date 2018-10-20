@@ -2,7 +2,6 @@
 import unittest
 from unittest import TestCase, mock
 from src.file import File
-from parameterized import parameterized
 
 
 class FileTest(unittest.TestCase):
