@@ -64,6 +64,16 @@ class ConfigurationFileTestCase(unittest.TestCase):
                     "unique": True,
                     "after": "[mode]",
                     "text": "    Some other configuration"
+                },
+                {   # it should not append this one, since it exists at this point
+                    "verb": "append",
+                    "unique": True,
+                    "text": "Include /etc/phpmyadmin/apache.conf"
+                },
+                {  # it should not append this one, since it also exists
+                    "verb": "append",
+                    "unique": True,
+                    "text": "Errors Off\nSomething Else On\n"
                 }
             ]
         }

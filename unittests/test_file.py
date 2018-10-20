@@ -2,6 +2,7 @@
 import unittest
 from unittest import TestCase, mock
 from src.file import File
+from parameterized import parameterized
 
 
 class FileTest(unittest.TestCase):
@@ -157,4 +158,16 @@ class FileTest(unittest.TestCase):
         # Act
         with self.assertRaises(IOError): File("some_file_that_should_not_exists.txt")
 
+    @mock.patch("builtins.open", create=True)
+    def test_find_text(self,mock_open):
+        # Arrange
+        mock_open.side_effect = [
+            mock.mock_open(read_data=self.file_content).return_value
+        ]
 
+        # Act
+        file = File("testfile.json")
+
+
+        # Assert
+        self.assertFalse()

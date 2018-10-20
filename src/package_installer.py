@@ -1,4 +1,3 @@
-from src.bash_connector import BashConnector
 
 
 class PackageInstaller(object):
@@ -22,7 +21,8 @@ class PackageInstaller(object):
         in a string
         :param string: the string
         :param char: the char it is looking for
-        :return: boolean
+        :return: boolean\]
+
         """
         str_version = str(string)
         # try to find substring

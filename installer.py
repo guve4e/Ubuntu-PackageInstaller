@@ -153,7 +153,7 @@ if __name__ == "__main__":
         install_packages(packages)
     else:
         # install packages first
-        #load_packages(cmd.config_name)
+        load_packages(cmd.config_name)
 
         # then install programs
         #(cmd.config_name)
