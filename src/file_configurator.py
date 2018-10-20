@@ -28,8 +28,20 @@ class FileConfigurator(object):
     def file(self):
         return self.__file
 
-    def __line_exists(self, search_line)-> bool:
-        return False
+    def __text_exists(self, text: str)-> bool:
+        """
+        Determines if the text string has \n character.
+        If it does, calls file.text_exist,
+        if it does not, it calls file.line_exist
+        :param text: the text to search for
+        :return: boolean value
+        """
+        if "\n" in text:
+            result = self.__file.text_exists(text)
+        else:
+            result = self.__file.line_exists(text)
+
+        return result
 
     def configure_change(self, config: {}) -> None:
         """
@@ -45,7 +57,7 @@ class FileConfigurator(object):
         that the line is unique and the line actually exists
         """
         if config['unique']:
-            if self.__file.line_exists(config['text']):
+            if self.__text_exists(config['text']):
                 return
 
         self.__file.append(config['text'])
@@ -57,21 +69,20 @@ class FileConfigurator(object):
         that the line is unique and the line actually exists
         """
         if config['unique']:
-            if self.__file.line_exists(config['text']):
+            if self.__text_exists(config['text']):
                 return
 
         self.__file.add(config['text'], config['after'])
 
     def configure(self):
         """
-
+        Wrapper
         :return:
         """
         print("=====================================")
         print("Configuring " + self.__file_path + " file\n")
 
         for config in self.__config_list:
-
             if config['verb'] == 'add':
                 self.configure_add(config)
             elif config['verb'] == 'change':
