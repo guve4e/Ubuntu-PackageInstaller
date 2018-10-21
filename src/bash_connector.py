@@ -4,6 +4,11 @@ import subprocess
 class BashConnector(object):
 
     @classmethod
+    def __shell(self, command: str)-> str:
+        proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+        return proc.stdout.read()
+
+    @classmethod
     def apt_cache(cls, package: {})-> str:
         """
         Script uses apt-cache policy (ubuntu program)
@@ -15,23 +20,12 @@ class BashConnector(object):
         :return: The output of executed apt-cache policy
         program.
         """
-
         cache_policy = "apt-cache policy "
-
-        # use subprocess to execute apt-cache policy
-        # pipe it to a variable output
-        try:
-            c = cache_policy + str(package['package name'])
-            proc = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
-            shell_output = proc.stdout.read()
-
-        except subprocess.CalledProcessError as e:
-            shell_output = e.output
-
-        return shell_output
+        command = cache_policy + str(package['package name'])
+        return BashConnector.__shell(command)
 
     @classmethod
-    def install_package(cls, command)-> None:
+    def install_package(cls, command)-> str:
         """
         Runs a terminal command.
         Ex:
@@ -41,29 +35,19 @@ class BashConnector(object):
         Ex: sudo apt-get install chromium-browser -y
         :return: void
         """
-
-        try:
-            subprocess.run(str(command['command']), shell=True, check=True)
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
+        return BashConnector.__shell(str(command['command']))
 
     @classmethod
-    def update(cls):
+    def update(cls)-> str:
         """
         Downloads the package lists from the repositories and "updates"
         them to get information on the newest versions of packages and their dependencies
         :return: void
         """
-
-        try:
-            subprocess.run("sudo apt-get update ", shell=True, check=True)
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
+        return BashConnector.__shell("sudo apt update")
 
     @classmethod
-    def change_file_permission(cls, mode, file)-> None:
+    def change_file_permission(cls, mode, file)-> str:
         """
         Uses chmod to change the permission of the file.
         :param mode: string chmod mode Ex: '777'
@@ -71,10 +55,7 @@ class BashConnector(object):
         :return: void
         :raises: when subprocess fails
         """
+        command_str = ''.join(['chmod', mode, file])
+        return BashConnector.__shell(command_str)
 
-        try:
-            subprocess.call(['chmod', mode, file])
-        except subprocess.CalledProcessError as e:
-            output = e.output
-            print(output)
 
