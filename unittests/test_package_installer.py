@@ -134,7 +134,7 @@ class TestPackageInstaller(TestCase):
         # Act
         for parameter, expected in param_list:
             with self.subTest():
-                actual = self.package.sanitize_str(parameter)
+                actual = self.package.sanitize_byte_str(parameter)
                 # Assert
                 self.assertEqual(expected, actual)
 

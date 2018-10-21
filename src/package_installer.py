@@ -45,7 +45,7 @@ class PackageInstaller(object):
         return string
 
     @classmethod
-    def sanitize_str(cls, string: str)-> str:
+    def sanitize_byte_str(cls, string: str)-> str:
         """
         Removes 'b' and ' from a string
         :param string: the string to be sanitized
@@ -70,7 +70,7 @@ class PackageInstaller(object):
         """
 
         # sanitize the string
-        string = cls.sanitize_str(string)
+        string = cls.sanitize_byte_str(string)
 
         # remove unnecessary things
         if cls.found_char(string, "-"):
