@@ -94,7 +94,8 @@ class PackageInstaller(object):
             i += 1
             print("Command Description " + str(i) + ": " + str(command['commandDescription']))
             print("Command :" + str(command['command']))
-            self.__bash_connector.install_package(command)
+            install_output = self.__bash_connector.install_package(command)
+            print(install_output)
 
             # increment the number of installed packages
             self.__packages_installed = self.__packages_installed + 1
