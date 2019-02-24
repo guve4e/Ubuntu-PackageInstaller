@@ -1,0 +1,19 @@
+{
+  "file_path" : "~/.gitconfig",
+  "comment_symbol" : "#",
+  "permission" : "777",
+  "config": [
+    {
+      "verb": "add",
+      "unique": true,
+      "after": "[diff]",
+      "text": "tool = meld"
+    },
+    {
+      "verb": "add",
+      "unique": true,
+      "after": "[user]",
+      "text": "name = Valentin Kormanov\nemail = guve4e@gmail.com"
+    }
+  ]
+}
