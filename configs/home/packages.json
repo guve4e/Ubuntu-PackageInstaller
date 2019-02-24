@@ -534,6 +534,18 @@
         "command" : "sudo snap install phpstorm --classic"
       }
     ]
-    }
+  },
+  {
+    "name" : "Docker",
+    "comment" : "Docker Containers",
+    "package name" : "docker",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt install docker -y"
+      }
+    ]
+  }
 ]
 
