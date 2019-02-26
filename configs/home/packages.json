@@ -276,22 +276,14 @@
   ]
   },
   {
-    "name" : "Shutter",
-    "comment" : "Shutter Installer",
-    "package name" : "shutter",
+    "name" : "Docker",
+    "comment" : "Docker Containers",
+    "package name" : "docker",
     "version" : "Latest",
     "commands" : [
       {
-        "commandDescription" : "repository",
-        "command" : "sudo add-apt-repository ppa:shutter/ppa"
-      },
-      {
-        "commandDescription" : "update",
-        "command" : "sudo apt update"
-      },
-      {
         "commandDescription" : "install",
-        "command" : "sudo apt-get install shutter -y"
+        "command" : "sudo apt-get install docker -y"
       }
     ]
     },
