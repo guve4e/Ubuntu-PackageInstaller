@@ -268,22 +268,6 @@
   ]
   },
   {
-    "name" : "Shutter",
-    "comment" : "Shutter Installer",
-    "package name" : "shutter",
-    "version" : "Latest",
-    "commands" : [
-      {
-        "commandDescription" : "repository",
-        "command" : "sudo add-apt-repository -y ppa:shutter/ppa"
-      },
-      {
-        "commandDescription" : "install",
-        "command" : "sudo apt-get install shutter -y"
-      }
-    ]
-    },
-  {
   "name" : "VLC",
   "comment" : "VLC Installer",
   "package name" : "vlc",
@@ -518,6 +502,30 @@
       "command" : "~/.dropbox-dist/dropboxd"
     }
   ]
+  },
+  {
+    "name" : "Aro Scan",
+    "comment" : "IP Scanner",
+    "package name" : "arp-scan ",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt install arp-scan -y"
+      }
+    ]
+  },
+  {
+    "name" : "NMap",
+    "comment" : "IP Scanner",
+    "package name" : "nmap ",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt install nmap -y"
+      }
+    ]
   }
 ]
 

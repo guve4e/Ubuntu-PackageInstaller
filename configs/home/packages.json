@@ -526,6 +526,30 @@
         "command" : "sudo snap install phpstorm --classic"
       }
     ]
-    }
+  },
+  {
+    "name" : "Aro Scan",
+    "comment" : "IP Scanner",
+    "package name" : "arp-scan ",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt install arp-scan -y"
+      }
+    ]
+  },
+  {
+    "name" : "NMap",
+    "comment" : "IP Scanner",
+    "package name" : "nmap ",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt install nmap -y"
+      }
+    ]
+  }
 ]
 
