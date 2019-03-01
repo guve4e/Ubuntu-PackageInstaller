@@ -550,6 +550,26 @@
         "command" : "sudo apt install nmap -y"
       }
     ]
+  },
+  {
+    "name" : "Windscribe",
+    "comment" : "VPN",
+    "package name" : "windscribe-cli",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "Add tge reo ti surce list",
+        "command" : "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7"
+      },
+      {
+        "commandDescription" : "udpate",
+        "command" : "sudo apt-get update"
+      },
+      {
+        "commandDescription" : "install",
+        "command" : "sudo apt-get install windscribe-cli -y"
+      }
+    ]
   }
 ]
 
