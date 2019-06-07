@@ -92,6 +92,30 @@
   ]
   },
   {
+  "name" : "MongoDB",
+  "comment" : "MongoDB Installer",
+  "package name" : "mongodb-org",
+  "version" : "Latest",
+  "commands" : [
+    {
+      "commandDescription" : "Import the public key used by the package management system",
+      "command" : "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4"
+    },
+    {
+      "commandDescription" : "Import the public key used by the package management system",
+      "command" : "echo \"deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse\" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list"
+    },
+    {
+      "commandDescription" : "Update",
+      "command" : "sudo apt update -y"
+    },
+    {
+      "commandDescription" : "Install",
+      "command" : "sudo apt install -y mongodb-org -y"
+    }
+  ]
+  },
+  {
   "name" : "PHP",
   "comment" : "PHP Installer",
   "package name" : "php7.0",
@@ -535,12 +559,24 @@
     "commands" : [
       {
         "commandDescription" : "install with snap",
-        "command" : "$sudo snap install intellij-idea-ultimate --classic --edge"
+        "command" : "sudo snap install intellij-idea-ultimate --classic --edge"
       }
     ]
   },
   {
-    "name" : "Aro Scan",
+    "name" : "Heroku",
+    "comment" : "Heroku CI",
+    "package name" : "heroku",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription": "install with snap",
+        "command": "sudo snap install --classic heroku"
+      }
+    ]
+  },
+  {
+    "name" : "Arp Scan",
     "comment" : "IP Scanner",
     "package name" : "arp-scan ",
     "version" : "Latest",
