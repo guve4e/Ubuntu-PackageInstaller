@@ -528,6 +528,18 @@
     ]
   },
   {
+    "name" : "IntelliJ",
+    "comment" : "IntelliJ",
+    "package name" : "intellij-idea-ultimate",
+    "version" : "Latest",
+    "commands" : [
+      {
+        "commandDescription" : "install with snap",
+        "command" : "$sudo snap install intellij-idea-ultimate --classic --edge"
+      }
+    ]
+  },
+  {
     "name" : "Aro Scan",
     "comment" : "IP Scanner",
     "package name" : "arp-scan ",
@@ -558,8 +570,12 @@
     "version" : "Latest",
     "commands" : [
       {
-        "commandDescription" : "Add tge reo ti surce list",
+        "commandDescription" : "add the Windscribe signing key to apt",
         "command" : "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7"
+      },
+      {
+        "commandDescription" : "add tge reo ti surce list",
+        "command" : "echo 'deb https://repo.windscribe.com/ubuntu zesty main' | sudo tee /etc/apt/sources.list.d/windscribe-repo.list"
       },
       {
         "commandDescription" : "udpate",
