@@ -469,17 +469,17 @@
   "package name" : "wireshark",
   "version" : "Latest",
   "commands" : [
-     {
-      "commandDescription" : "add repository",
-      "command" : "sudo add-apt-repository ppa:wireshark-dev/stable"
-    },
-    {
-      "commandDescription" : "update",
-      "command" : "sudo apt update"
-    },
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install wireshark -y"
+    },
+    {
+      "commandDescription" : "reconfigure",
+      "command" : "sudo dpkg-reconfigure wireshark-common"
+    },
+    {
+      "commandDescription" : "give the right permission",
+      "command" : "sudo chmod +x /usr/bin/dumpcap"
     }
   ]
   },
