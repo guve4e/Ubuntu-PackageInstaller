@@ -132,18 +132,6 @@
   ]
   },
   {
-  "name" : "PHP7 - X-DEBUG",
-  "comment" : "PHP7 - X-DEBUG Installer",
-  "package name" : "php-xdebug",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php-xdebug -y"
-    }
-  ]
-  },
-  {
   "name" : "PHP7 - MBString",
   "comment" : "PHP7 - MBString Installer",
   "package name" : "php7.0-mbstring",
@@ -152,26 +140,6 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install php7.0-mbstring -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP - PHPUNIT",
-  "comment" : "PHP Unit tests",
-  "package name" : "phpunit",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "download phar",
-      "command" : "wget https://phar.phpunit.de/phpunit-6.5.phar -y"
-    },
-    {
-      "commandDescription" : "permission",
-      "command" : "chmod +x phpunit-6.5.phar -y"
-    },
-    {
-      "commandDescription" : "move to the right directory",
-      "command" : "sudo mv phpunit-6.5.phar /usr/local/bin/phpunit -y"
     }
   ]
   },
@@ -332,30 +300,6 @@
     {
       "commandDescription" : "install jdk",
       "command" : "sudo apt-get install default-jdk -y"
-    }
-  ]
-  },
-  {
-  "name" : "Jenkins",
-  "comment" : "Continuous Integration tool ",
-  "package name" : "jenkins",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "download",
-      "command" : "wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -"
-    },
-    {
-      "commandDescription" : "add repository",
-      "command" : "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'"
-    },
-    {
-      "commandDescription" : "update",
-      "command" : "sudo apt update"
-    },
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt install jenkins -y"
     }
   ]
   },
