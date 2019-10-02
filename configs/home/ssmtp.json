@@ -6,7 +6,7 @@
     {
       "verb": "append",
       "unique": true,
-      "text": "mailhub=smtp.gmail.com:587\nUseSTARTTLS=YES\nAuthUser=johndoe@gmail.com\nAuthPass=authpass"
+      "text": "mailhub=smtp.gmail.com:587\nUseSTARTTLS=YES\nAuthUser=@gmail.com\nAuthPass=authpass"
     }
   ]
 }

@@ -118,140 +118,24 @@
   {
   "name" : "PHP",
   "comment" : "PHP Installer",
-  "package name" : "php7.0",
-  "version" : "7.0",
+  "package name" : "php7.2",
+  "version" : "7.2",
   "commands" : [
     {
-      "commandDescription" : "install python",
-      "command" : "sudo apt-get install python-software-properties -y"
+      "commandDescription" : "install php stuff",
+      "command" : "sudo apt-get install php7.2 php-tcpdf php7.2-cgi php7.2-mysqli php-pear php7.2-mbstring php7.2-gettext libapache2-mod-php7.2 php7.2-common php-phpseclib php7.2-mysql -y"
     },
     {
-      "commandDescription" : "repository",
-      "command" : "sudo add-apt-repository ppa:ondrej/php"
+      "commandDescription" : "curl",
+      "command" : "sudo apt-get install php-curl -y"
     },
     {
-      "commandDescription" : "update",
-      "command" : "sudo apt update"
+      "commandDescription" : "libapache2",
+      "command" : " sudo apt-get install libapache2-mod-php7.2"
     },
     {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install -y php7.0 -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP7 - MySQL",
-  "comment" : "PHP7 - MySQL Installer",
-  "package name" : "php7.0-mysql",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-mysql -y"
-    }
-  ]
-  },
-   {
-  "name" : "PHP - MyAdmin",
-  "comment" : "PHP - MyAdmin Installer",
-  "package name" : "phpmyadmin",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install phpmyadmin php-mbstring php-gettext -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP7 - CURL",
-  "comment" : "PHP7 - CURL Installer",
-  "package name" : "php7.0-curl",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-curl -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP7 - JSON",
-  "comment" : "PHP7 - JSON Installer",
-  "package name" : "php7.0-json",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-json -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP7 - CGI",
-  "comment" : "PHP7 - CGI Installer",
-  "package name" : "php7.0-cgi",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-cgi -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP7 - X-DEBUG",
-  "comment" : "PHP7 - X-DEBUG Installer",
-  "package name" : "php-xdebug",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php-xdebug -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP7 - MBString",
-  "comment" : "PHP7 - MBString Installer",
-  "package name" : "php7.0-mbstring",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-mbstring -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP - PHPUNIT",
-  "comment" : "PHP Unit tests",
-  "package name" : "phpunit",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "download phar",
-      "command" : "wget https://phar.phpunit.de/phpunit-6.5.phar -y"
-    },
-    {
-      "commandDescription" : "permission",
-      "command" : "chmod +x phpunit-6.5.phar -y"
-    },
-    {
-      "commandDescription" : "move to the right directory",
-      "command" : "sudo mv phpunit-6.5.phar /usr/local/bin/phpunit -y"
-    }
-  ]
-  },
-  {
-  "name" : "PHP - XML-WRITER",
-  "comment" : "XMLWriter PHP Module",
-  "package name" : "php7.0-xml",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install php7.0-xml -y"
+      "commandDescription" : "phpmyadmin",
+      "command" : "sudo apt install phpmyadmin -y"
     }
   ]
   },
@@ -328,30 +212,6 @@
   ]
   },
   {
-  "name" : "Curl",
-  "comment" : "Curl Installer",
-  "package name" : "curl",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install curl -y"
-    }
-  ]
-  },
-  {
-  "name" : "Git",
-  "comment" : "Git Installer",
-  "package name" : "git",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt-get install git -y"
-    }
-  ]
-  },
-  {
   "name" : "Meld",
   "comment" : "Meld Installer",
   "package name" : "meld",
@@ -400,18 +260,6 @@
   ]
   },
   {
-  "name" : "Connector/C++",
-  "comment" : "Connector/C++ MySQL interface Installer",
-  "package name" : "libmysqlcppconn-dev",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install",
-      "command" : "apt-get install libmysqlcppconn-dev -y"
-    }
-  ]
-  },
-  {
   "name" : "Python PIP3",
   "comment" : "pip is a package management system used to install and manage software packages written in Python",
   "package name" : "python3-pip",
@@ -432,22 +280,6 @@
     {
       "commandDescription" : "install",
       "command" : "sudo apt-get install python3-pymysql -y"
-    }
-  ]
-  },
-  {
-  "name" : "Java",
-  "comment" : "No Comment",
-  "package name" : "default-jdk",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "install jre",
-      "command" : "sudo apt-get install default-jre -y"
-    },
-    {
-      "commandDescription" : "install jdk",
-      "command" : "sudo apt-get install default-jdk -y"
     }
   ]
   },
@@ -480,30 +312,6 @@
     {
       "commandDescription" : "give the right permission",
       "command" : "sudo chmod +x /usr/bin/dumpcap"
-    }
-  ]
-  },
-  {
-  "name" : "Jenkins",
-  "comment" : "Continuous Integration tool ",
-  "package name" : "jenkins",
-  "version" : "Latest",
-  "commands" : [
-    {
-      "commandDescription" : "download",
-      "command" : "wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -"
-    },
-    {
-      "commandDescription" : "add repository",
-      "command" : "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'"
-    },
-    {
-      "commandDescription" : "update",
-      "command" : "sudo apt update"
-    },
-    {
-      "commandDescription" : "install",
-      "command" : "sudo apt install jenkins -y"
     }
   ]
   },
