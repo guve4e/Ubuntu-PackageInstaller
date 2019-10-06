@@ -130,6 +130,10 @@
       "command" : "sudo apt-get install php-curl -y"
     },
     {
+      "commandDescription" : "xdebug",
+      "command" : "sudo apt install php-xdebug -y"
+    },
+    {
       "commandDescription" : "libapache2",
       "command" : " sudo apt-get install libapache2-mod-php7.2"
     },
