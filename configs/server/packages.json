@@ -67,7 +67,7 @@
     },
     {
       "commandDescription" : "install",
-      "command" : "sudo apt-get install -y php7.0 -y"
+      "command" : "sudo apt-get install -y php7.2 -y"
     }
   ]
   },
